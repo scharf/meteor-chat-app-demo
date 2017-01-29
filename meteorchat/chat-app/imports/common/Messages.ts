@@ -27,15 +27,16 @@ const users=[
     {senderName:'Alexander', avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/b/b/4/c/thumb_244367948.jpeg'},
     {senderName:'Michael', avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg'}
 ]
+let nextMessageId=1;
 
-export function getMessages(n=100):Message[] {
+export function createMessages(n=100):Message[] {
     function randomChoice<T>(array:T[]) {
         return array[Math.floor(array.length * Math.random())];
     }
-    function message(i:number):Message {
+    function message():Message {
         const user=randomChoice(users);
         return {
-            _id:`${i}`,
+            _id:`${nextMessageId++}`,
             text: randomChoice(text)+'.',
             senderName: user.senderName,
             avatar: user.avatar,
@@ -43,9 +44,18 @@ export function getMessages(n=100):Message[] {
     }
     const result:Message[]=[];
     for (var i = 0; i < n; i++) {
-        result.push(message(i))
+        result.push(message())
 
     }
     return result
 
+}
+
+export function createMessage(message:string):Message {
+    return {
+        _id:`${nextMessageId}`,
+        text:message,
+        senderName:'Michael',
+        avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg'
+    }
 }
