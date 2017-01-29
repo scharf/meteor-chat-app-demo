@@ -2,7 +2,7 @@
 
 # before we start meteor we have to make sure that npm has been installed
 start: .makehelper/npm
-	meteor
+	MONGO_URL="mongodb://localhost/meteor-demo" meteor
 
 clean:
 	rm -rf node_modules
