@@ -15,6 +15,7 @@ export class TopBar extends React.Component<NavigationProperties,void> {
                         <a href="#">React-Bootstrap</a>
                     </Navbar.Brand>
                 </Navbar.Header>
+
                 <Nav>
                     <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
                         <MenuItem eventKey={3.1}>Action</MenuItem>

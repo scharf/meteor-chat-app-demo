@@ -21,7 +21,7 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                 <TopBar fixedTop/>
                 {/* This is totally annoying: to get the top border correctly we simply duplicate the navigation*/}
                 <TopBar/>
-                <Grid>
+                <Grid style={{marginBottom:51}}>
                     <Row>
                         <Col sm={2} md={3}>
                             <ChatRoomsSelector

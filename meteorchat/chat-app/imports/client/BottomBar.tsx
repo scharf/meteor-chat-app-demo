@@ -1,35 +1,53 @@
 import * as React from "react";
-import { Navbar, FormGroup, FormControl } from "react-bootstrap";
+import { FormControl, FormGroup, InputGroup, Navbar } from "react-bootstrap";
 
 interface NavigationProperties {
-    fixedTop?:boolean;
-    sendMessage:(message:string)=>void;
+    sendMessage:(message:string) => void;
 
 }
 
-export class BottomBar extends React.Component<NavigationProperties,void> {
-    sendMessageHandler (event: React.SyntheticEvent<HTMLInputElement>) {
-        const message = event.currentTarget.value;
-        this.props.sendMessage(message);
+interface NavigationState {
+    newMessage:string;
+}
+
+export class BottomBar extends React.Component<NavigationProperties,NavigationState> {
+    constructor (props:NavigationProperties) {
+        super(props);
+        this.state = {
+            newMessage: ''
+        }
+    }
+
+    onChange (event:React.SyntheticEvent<HTMLInputElement>) {
+        this.setState({
+            newMessage: event.currentTarget.value
+        });
 
     }
-    render() {
+
+    handleKeyPress (target:React.KeyboardEvent<HTMLInputElement>) {
+        if (target.charCode == 13) {
+            this.props.sendMessage(this.state.newMessage);
+            this.setState({ newMessage: '' });
+        }
+    }
+
+    render () {
         return (
-            <Navbar className="navbar-fixed-bottom">
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <a href="#">Brand</a>
-                    </Navbar.Brand>
-                    <Navbar.Toggle />
-                </Navbar.Header>
-                <Navbar.Collapse>
-                    <Navbar.Form>
-                        <FormGroup>
-                            <FormControl type="text" placeholder="Message" onBlur={this.sendMessageHandler.bind(this)}/>
-                        </FormGroup>
-                        {' '}
-                    </Navbar.Form>
-                </Navbar.Collapse>
+            <Navbar fixedBottom>
+                <Navbar.Form>
+                    <FormGroup style={{ width: '100%' }}>
+                        <InputGroup style={{ width: '100%' }}>
+                            <InputGroup.Addon style={{ width: '34px' }}>+</InputGroup.Addon>
+                            <FormControl type="text"
+                                         placeholder="Message"
+                                         value={this.state.newMessage}
+                                         onKeyPress={this.handleKeyPress.bind(this)}
+                                         onChange={this.onChange.bind(this)}
+                            />
+                        </InputGroup>
+                    </FormGroup>
+                </Navbar.Form>
             </Navbar>
 
         );
