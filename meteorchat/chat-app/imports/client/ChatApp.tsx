@@ -4,11 +4,13 @@ import { TopBar } from "./TopBar";
 import { BottomBar } from "./BottomBar";
 import { MessageList } from "./MessageList";
 import { ChatRoomsSelector } from "./ChatRoomsSelector";
-import { ChatRoom, getChatRoom } from "../common/ChatRooms";
+import { ChatRoom } from "../common/ChatRooms";
+import { Message } from "../common/Messages";
 
 interface ChatAppProps {
     currentChatRoomId:string;
     chatRooms:ChatRoom[];
+    messages:Message[];
     gotoChatRoom:(charRoomId:string)=>void;
     sendMessage:(message:string)=>void;
 }
@@ -31,7 +33,7 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                             />
                         </Col>
                         <Col sm={10} md={9}>
-                            <MessageList messages={getChatRoom(this.props.currentChatRoomId).messages}/>
+                            <MessageList messages={this.props.messages}/>
                         </Col>
                     </Row>
                 </Grid>

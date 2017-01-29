@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ChatRoom, chatRooms, sendMessage, setCurrentChatRoom } from "../common/ChatRooms";
+import { ChatRoom, chatRooms, getChatRoom, sendMessage, setCurrentChatRoom } from "../common/ChatRooms";
 import { ChatApp } from "./ChatApp";
 
 interface AppState {
@@ -33,6 +33,7 @@ export class App extends React.Component<void,AppState> {
             <ChatApp
                 currentChatRoomId={this.state.currentChatRoomId}
                 chatRooms={this.state.chatRooms}
+                messages={getChatRoom(this.state.currentChatRoomId).messages}
                 gotoChatRoom={this.gotoChatRoom.bind(this)}
                 sendMessage={this.sendMessage.bind(this)}
             />
