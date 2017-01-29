@@ -45,7 +45,7 @@ export function getCurrentChatRoom() {
     return currentChatRoom;
 }
 
-function postMessage(chatRoomId:string, message:string) {
+export function sendMessage(chatRoomId:string, message:string) {
     getChatRoom(chatRoomId).messages.push(createMessage(message));
 }
 

@@ -53,7 +53,7 @@ export function createMessages(n=100):Message[] {
 
 export function createMessage(message:string):Message {
     return {
-        _id:`${nextMessageId}`,
+        _id:`${nextMessageId++}`,
         text:message,
         senderName:'Michael',
         avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg'

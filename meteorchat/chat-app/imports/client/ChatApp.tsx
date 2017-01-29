@@ -10,6 +10,7 @@ interface ChatAppProps {
     currentChatRoomId:string;
     chatRooms:ChatRoom[];
     gotoChatRoom:(charRoomId:string)=>void;
+    sendMessage:(message:string)=>void;
 }
 
 export class ChatApp extends React.Component<ChatAppProps,void> {
@@ -34,7 +35,7 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                         </Col>
                     </Row>
                 </Grid>
-                <BottomBar />
+                <BottomBar sendMessage={this.props.sendMessage}/>
             </div>
 
         );

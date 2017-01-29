@@ -1,6 +1,5 @@
 import * as React from "react";
-import { createMessages, Message } from "../common/Messages";
-import { ChatRoom, chatRooms, setCurrentChatRoom } from "../common/ChatRooms";
+import { ChatRoom, chatRooms, sendMessage, setCurrentChatRoom } from "../common/ChatRooms";
 import { ChatApp } from "./ChatApp";
 
 interface AppState {
@@ -22,6 +21,12 @@ export class App extends React.Component<void,AppState> {
             currentChatRoomId:id
         });
     }
+    private sendMessage(message:string) {
+        sendMessage(this.state.currentChatRoomId,message);
+        this.setState({
+            chatRooms:chatRooms
+        });
+    }
     render () {
 
         return (
@@ -29,6 +34,7 @@ export class App extends React.Component<void,AppState> {
                 currentChatRoomId={this.state.currentChatRoomId}
                 chatRooms={this.state.chatRooms}
                 gotoChatRoom={this.gotoChatRoom.bind(this)}
+                sendMessage={this.sendMessage.bind(this)}
             />
 
         );
