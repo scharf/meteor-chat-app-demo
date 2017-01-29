@@ -1,34 +1,35 @@
 import * as React from "react";
-import { MessageLine } from "./MessageLine";
-import { Message } from "../common/Messages";
+import { getMessages } from "../common/Messages";
+import { Col, Grid, Row } from "react-bootstrap";
+import { TopBar } from "./TopBar";
+import { BottomBar } from "./BottomBar";
+import { MessageList } from "./MessageList";
+import { ChatRoomsSelector } from "./ChatRoomsSelector";
+import { getChatRooms } from "../common/ChatRooms";
 
-// App component - represents the whole app
+
 export class App extends React.Component<void,void> {
-    private getMessages():Message[] {
-        return [
-            { _id: '1', text: 'Hello', senderName:'Michael' },
-            { _id: '2', text: 'Hello', senderName:'Alexander' },
-            { _id: '3', text: 'This is task 3', senderName:'Michael' },
-        ];
-    }
 
-    private renderMessageLined() {
-        return this.getMessages().map((message) => (
-            <MessageLine key={message._id} message={message} />
-        ));
-    }
+    render () {
 
-    render() {
         return (
-            <div className="container">
-                <header>
-                    <h1>Messages</h1>
-                </header>
-
-                <div>
-                    {this.renderMessageLined()}
-                </div>
+            <div>
+                <TopBar fixedTop/>
+                {/* This is totally annoying: to get the top border correctly we simply duplicate the navigation*/}
+                <TopBar/>
+                <Grid>
+                    <Row>
+                        <Col sm={2} md={3}>
+                            <ChatRoomsSelector chatRooms={getChatRooms(5)} currentChatRoomId="3"/>
+                        </Col>
+                        <Col sm={10} md={9}>
+                            <MessageList messages={getMessages(100)}/>
+                        </Col>
+                    </Row>
+                </Grid>
+                <BottomBar />
             </div>
+
         );
     }
 }
