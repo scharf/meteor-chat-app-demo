@@ -5,13 +5,11 @@ import {
     Form,
     FormControl,
     FormGroup,
-    Glyphicon,
     InputGroup,
     ListGroup,
     ListGroupItem
 } from "react-bootstrap";
-import { ChatRoom, chatRoomSubscribe } from "../common/ChatRooms";
-import { ChatRoomActions } from "../common/ChatRoomActions";
+import { ChatRoom, ChatRoomActions } from "../common/ChatRoomApi";
 
 interface ChatRoomsProperties {
     chatRooms:ChatRoom[];

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FormControl, FormGroup, InputGroup, Navbar } from "react-bootstrap";
-import { ChatRoomActions } from "../common/ChatRoomActions";
+import { ChatRoomActions } from "../common/ChatRoomApi";
 
 interface NavigationProperties {
     actions:ChatRoomActions;

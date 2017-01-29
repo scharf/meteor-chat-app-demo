@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MessageLine } from "./MessageLine";
-import { Message } from "../common/Messages";
 import { Media } from "react-bootstrap";
+import { Message } from "../common/ChatRoomApi";
 
 interface MessageListProps {
     messages:Message[];

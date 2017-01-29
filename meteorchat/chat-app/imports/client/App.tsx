@@ -1,14 +1,16 @@
 import * as React from "react";
 import {
-    ChatRoom, chatRoomActionsActions, chatRoomGetAll,
-    chatRoomGetCurrent,
+    simpleChartRoomActions, chatRoomGetAll,
+    chatRoomGetCurrentId, chatRoomMessages,
     registerChangeListener
-} from "../common/ChatRooms";
+} from "../common/simple/SimpleChatRooms";
 import { ChatApp } from "./ChatApp";
+import { ChatRoom, Message } from "../common/ChatRoomApi";
 
 interface AppState {
-    chatRoom:ChatRoom;
+    currentChatRoomId:string;
     chatRooms:ChatRoom[];
+    messages:Message[];
 }
 
 export class App extends React.Component<void,AppState> {
@@ -17,16 +19,18 @@ export class App extends React.Component<void,AppState> {
     constructor () {
         super();
         this.state = {
-            chatRoom: chatRoomGetCurrent(),
+            currentChatRoomId: chatRoomGetCurrentId(),
             chatRooms: chatRoomGetAll(),
+            messages: chatRoomMessages(chatRoomGetCurrentId()),
         }
     }
 
     componentWillMount () {
         this.unregister = registerChangeListener(() => {
             this.setState({
-                chatRoom: chatRoomGetCurrent(),
+                currentChatRoomId: chatRoomGetCurrentId(),
                 chatRooms: chatRoomGetAll(),
+                messages: chatRoomMessages(chatRoomGetCurrentId()),
             })
         })
     }
@@ -38,16 +42,12 @@ export class App extends React.Component<void,AppState> {
     }
 
     render () {
-        if (!this.state.chatRoom) {
-            return null;
-        }
-
         return (
             <ChatApp
-                currentChatRoomId={this.state.chatRoom._id}
+                currentChatRoomId={this.state.currentChatRoomId}
                 chatRooms={this.state.chatRooms}
-                messages={this.state.chatRoom.messages}
-                actions={chatRoomActionsActions}
+                messages={this.state.messages}
+                actions={simpleChartRoomActions}
             />
 
         );

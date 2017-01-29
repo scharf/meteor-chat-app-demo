@@ -1,6 +1,6 @@
-import { createMessage, createMessages, Message } from "./Messages";
-import { ChatRoomActions } from "./ChatRoomActions";
-export interface ChatRoom {
+import { createMessage, createMessages } from "./SimpleMessages";
+import { ChatRoom, ChatRoomActions, Message } from "../ChatRoomApi";
+interface ChatRoomSimple extends ChatRoom {
     _id:string;
     name:string;
     isSubscribed?:boolean;
@@ -20,11 +20,11 @@ export function fireChanges() {
 }
 
 let nextId=1;
-const chatRooms:ChatRoom[]=[];
+const chatRooms:ChatRoomSimple[]=[];
 createChatRooms();
 
-function createChatRoom(name:string):ChatRoom {
-    const chatRoom:ChatRoom={
+function createChatRoom(name:string):ChatRoomSimple {
+    const chatRoom:ChatRoomSimple={
         _id:`${nextId++}`,
         name,
         messages:[],
@@ -40,12 +40,12 @@ function createChatRoom(name:string):ChatRoom {
 function createChatRooms(n=5) {
     for (let i = 0; i < n; i++) {
         const chatRoom = createChatRoom(`Chat ${i}`);
-        chatRoom.messages=createMessages(5*(i+1));
+        chatRoom.messages=createMessages(chatRoom._id, 5*(i+1));
         chatRoom.newMessages=chatRoom.messages.length;
     }
 }
 
-function getChatRoom(chatRoomId:string):ChatRoom {
+function getChatRoom(chatRoomId:string):ChatRoomSimple {
     for (let i = 0; i < chatRooms.length; i++) {
         const chatRoom = chatRooms[i];
         if(chatRoom._id === chatRoomId) {
@@ -57,7 +57,7 @@ function getChatRoom(chatRoomId:string):ChatRoom {
 
 function sendMessage(chatRoomId:string, message:string) {
     const chatRoom = getChatRoom(chatRoomId);
-    chatRoom.messages.push(createMessage(message));
+    chatRoom.messages.push(createMessage(chatRoomId, message));
     // chatRoom.newMessages+=1;
     fireChanges();
 }
@@ -75,15 +75,17 @@ function gotoChatRoom(chatRoomId:string) {
 }
 gotoChatRoom(chatRooms[0]._id);
 
-export function chatRoomGetCurrent() {
-    return currentChatRoom;
+export function chatRoomGetCurrentId() {
+    return currentChatRoom._id;
 }
 
 export function chatRoomGetAll() {
     return chatRooms;
 }
-
-export const chatRoomActionsActions:ChatRoomActions = {
+export function chatRoomMessages(chatRoomId:string):Message[] {
+    return getChatRoom(chatRoomId).messages;
+}
+export const simpleChartRoomActions:ChatRoomActions = {
     gotoChatRoom,
     createChatRoom,
     sendMessage,

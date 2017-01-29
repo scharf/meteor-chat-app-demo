@@ -1,15 +1,4 @@
-import { Mongo } from 'meteor/mongo';
-
-
-export interface Message {
-    _id:string;
-    chatRoomId?:string;
-    text:string;
-    senderId?:string;
-    senderName:string;
-    avatar:string;
-}
-export const Messages = new Mongo.Collection<Message>('messages');
+import { Message } from "../ChatRoomApi";
 
 
 const text=`Lorem ipsum dolor sit amet
@@ -36,7 +25,7 @@ const users=[
 ]
 let nextMessageId=1;
 
-export function createMessages(n=100):Message[] {
+export function createMessages(chatRoomId:string,n=100):Message[] {
     function randomChoice<T>(array:T[]) {
         return array[Math.floor(array.length * Math.random())];
     }
@@ -44,9 +33,12 @@ export function createMessages(n=100):Message[] {
         const user=randomChoice(users);
         return {
             _id:`${nextMessageId++}`,
+            chatRoomId,
+            senderId:user.senderName,
             text: randomChoice(text)+'.',
             senderName: user.senderName,
             avatar: user.avatar,
+            createdAt:new Date(),
         }
     }
     const result:Message[]=[];
@@ -57,11 +49,15 @@ export function createMessages(n=100):Message[] {
     return result
 }
 
-export function createMessage(message:string):Message {
+export function createMessage(chatRoomId:string, message:string):Message {
     return {
         _id:`${nextMessageId++}`,
+        chatRoomId,
         text:message,
+        senderId:'scharf',
         senderName:'Michael',
-        avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg'
+        avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg',
+        createdAt:new Date(),
+
     }
 }
