@@ -1,41 +1,53 @@
 import * as React from "react";
-import { ChatRoom, chatRooms, getChatRoom, sendMessage, setCurrentChatRoom } from "../common/ChatRooms";
+import {
+    ChatRoom, chatRoomActionsActions, chatRoomGetAll,
+    chatRoomGetCurrent,
+    registerChangeListener
+} from "../common/ChatRooms";
 import { ChatApp } from "./ChatApp";
 
 interface AppState {
-    currentChatRoomId:string;
+    chatRoom:ChatRoom;
     chatRooms:ChatRoom[];
 }
 
 export class App extends React.Component<void,AppState> {
+    private unregister:Function;
+
     constructor () {
         super();
         this.state = {
-            currentChatRoomId: '1',
-            chatRooms: chatRooms,
+            chatRoom: chatRoomGetCurrent(),
+            chatRooms: chatRoomGetAll(),
         }
     }
-    private gotoChatRoom(id:string) {
-        setCurrentChatRoom(id);
-        this.setState({
-            currentChatRoomId:id
-        });
+
+    componentWillMount () {
+        this.unregister = registerChangeListener(() => {
+            this.setState({
+                chatRoom: chatRoomGetCurrent(),
+                chatRooms: chatRoomGetAll(),
+            })
+        })
     }
-    private sendMessage(message:string) {
-        sendMessage(this.state.currentChatRoomId,message);
-        this.setState({
-            chatRooms:chatRooms
-        });
+
+    componentWillUnmount () {
+        if (this.unregister) {
+            this.unregister();
+        }
     }
+
     render () {
+        if (!this.state.chatRoom) {
+            return null;
+        }
 
         return (
             <ChatApp
-                currentChatRoomId={this.state.currentChatRoomId}
+                currentChatRoomId={this.state.chatRoom._id}
                 chatRooms={this.state.chatRooms}
-                messages={getChatRoom(this.state.currentChatRoomId).messages}
-                gotoChatRoom={this.gotoChatRoom.bind(this)}
-                sendMessage={this.sendMessage.bind(this)}
+                messages={this.state.chatRoom.messages}
+                actions={chatRoomActionsActions}
             />
 
         );

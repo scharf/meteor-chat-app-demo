@@ -1,9 +1,16 @@
+import { Mongo } from 'meteor/mongo';
+
+
 export interface Message {
     _id:string;
+    chatRoomId?:string;
     text:string;
+    senderId?:string;
     senderName:string;
     avatar:string;
 }
+export const Messages = new Mongo.Collection<Message>('messages');
+
 
 const text=`Lorem ipsum dolor sit amet
 Consectetur adipiscing elit
@@ -48,7 +55,6 @@ export function createMessages(n=100):Message[] {
 
     }
     return result
-
 }
 
 export function createMessage(message:string):Message {

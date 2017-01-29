@@ -6,13 +6,13 @@ import { MessageList } from "./MessageList";
 import { ChatRoomsSelector } from "./ChatRoomsSelector";
 import { ChatRoom } from "../common/ChatRooms";
 import { Message } from "../common/Messages";
+import { ChatRoomActions } from "../common/ChatRoomActions";
 
 interface ChatAppProps {
     currentChatRoomId:string;
     chatRooms:ChatRoom[];
     messages:Message[];
-    gotoChatRoom:(charRoomId:string)=>void;
-    sendMessage:(message:string)=>void;
+    actions:ChatRoomActions;
 }
 
 export class ChatApp extends React.Component<ChatAppProps,void> {
@@ -28,7 +28,7 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                         <Col sm={2} md={3}>
                             <ChatRoomsSelector
                                 chatRooms={this.props.chatRooms}
-                                gotoChatRoom={this.props.gotoChatRoom}
+                                actions={this.props.actions}
                                 currentChatRoomId={this.props.currentChatRoomId}
                             />
                         </Col>
@@ -37,7 +37,7 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                         </Col>
                     </Row>
                 </Grid>
-                <BottomBar sendMessage={this.props.sendMessage}/>
+                <BottomBar chatRoomId={this.props.currentChatRoomId} actions={this.props.actions}/>
             </div>
 
         );

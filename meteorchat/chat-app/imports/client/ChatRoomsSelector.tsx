@@ -1,11 +1,22 @@
 import * as React from "react";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
-import { ChatRoom } from "../common/ChatRooms";
+import {
+    Badge,
+    Button,
+    Form,
+    FormControl,
+    FormGroup,
+    Glyphicon,
+    InputGroup,
+    ListGroup,
+    ListGroupItem
+} from "react-bootstrap";
+import { ChatRoom, chatRoomSubscribe } from "../common/ChatRooms";
+import { ChatRoomActions } from "../common/ChatRoomActions";
 
 interface ChatRoomsProperties {
     chatRooms:ChatRoom[];
     currentChatRoomId:string;
-    gotoChatRoom:(charRoomId:string)=>void;
+    actions:ChatRoomActions;
 }
 
 export class ChatRoomsSelector extends React.Component<ChatRoomsProperties,void> {
@@ -13,19 +24,30 @@ export class ChatRoomsSelector extends React.Component<ChatRoomsProperties,void>
         return this.props.chatRooms.map((chatRoom) => (
             <ListGroupItem
                 key={chatRoom._id}
-                active={this.props.currentChatRoomId==chatRoom._id}
-                onClick={() => this.props.gotoChatRoom(chatRoom._id)}
+                active={this.props.currentChatRoomId == chatRoom._id}
+                onClick={() => this.props.actions.gotoChatRoom(chatRoom._id)}
             >
-                {chatRoom.name}
+                <b>{chatRoom.name}</b>
+                <Badge>{chatRoom.newMessages}</Badge>
             </ListGroupItem>
         ));
     }
 
-    render() {
+    render () {
         return (
-            <ListGroup>
-                {this.renderChatRooms()}
-            </ListGroup>
+            <div>
+                <Form>
+                    <FormGroup controlId="formInlineName">
+                        <FormControl type="text" placeholder="New Group"/>
+                        <InputGroup.Button>
+                            <Button onClick={() => this.props.actions.createChatRoom('Chat Room')}>Add</Button>
+                        </InputGroup.Button>
+                    </FormGroup>
+                </Form>
+                <ListGroup>
+                    {this.renderChatRooms()}
+                </ListGroup>
+            </div>
         );
     }
 }
