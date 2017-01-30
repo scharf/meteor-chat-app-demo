@@ -8,10 +8,13 @@ import { Tracker } from "meteor/tracker";
 
 
 export const MeteorApp = createContainer<void>(function():ChatAppProps {
-    const currentChatRoomId = getCurrentChatRoomId();
-    const messages = Messages.find({chatRoomId:currentChatRoomId}).fetch();
     const chatRooms = ChatRooms.find({}).fetch();
+    let currentChatRoomId = getCurrentChatRoomId();
+    if(!currentChatRoomId && chatRooms.length) {
+        currentChatRoomId = chatRooms[0]._id
+    }
     const loggedIn = Meteor.userId()!=null;
+    const messages = Messages.find({chatRoomId:currentChatRoomId}).fetch();
     return {
         currentChatRoomId,
         chatRooms:chatRooms,

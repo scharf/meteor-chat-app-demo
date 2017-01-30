@@ -39,14 +39,13 @@ function sendMessage(chatRoomId:string, message:string):void {
 }
 export function setAvatar(url:string) {
     Meteor.users.update(Meteor.userId(),{$set:{"profile.avatar":url}})
-    // Messages.update({senderId:Meteor.userId()},{$set:{"avatar":url}}, {multi:true})
 }
 function getAvatar() {
     const user = Meteor.user();
     if(user && user.profile && user.profile.avatar) {
         return user.profile.avatar;
     }
-    return 'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg';
+    return '/avatar.jpg';
 }
 
 setActions( {
