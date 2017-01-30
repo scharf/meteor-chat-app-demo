@@ -1,6 +1,6 @@
 
 export interface Message {
-    _id:string;
+    _id?:string;
     text:string;
     chatRoomId:string;
     senderId:string;
@@ -11,7 +11,7 @@ export interface Message {
 
 
 export interface ChatRoom {
-    _id:string;
+    _id?:string;
     name:string;
     isSubscribed?:boolean;
     newMessages:number;
