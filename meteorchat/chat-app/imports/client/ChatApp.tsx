@@ -6,7 +6,7 @@ import { MessageList } from "./MessageList";
 import { ChatRoomsSelector } from "./ChatRoomsSelector";
 import { ChatRoom, ChatRoomActions, Message } from "../common/ChatRoomApi";
 
-interface ChatAppProps {
+export interface ChatAppProps {
     currentChatRoomId:string;
     chatRooms:ChatRoom[];
     messages:Message[];
