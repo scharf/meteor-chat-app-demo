@@ -86,8 +86,12 @@ export function chatRoomMessages(chatRoomId:string):Message[] {
     return getChatRoom(chatRoomId).messages;
 }
 
+export function setAvatar(url:string) {
+    localStorage.setItem('avatar', url);
+}
 setActions({
     gotoChatRoom,
     createChatRoom,
     sendMessage,
+    setAvatar
 });

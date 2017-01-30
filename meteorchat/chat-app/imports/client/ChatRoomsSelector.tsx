@@ -1,11 +1,6 @@
 import * as React from "react";
 import {
     Badge,
-    Button,
-    Form,
-    FormControl,
-    FormGroup,
-    InputGroup,
     ListGroup,
     ListGroupItem
 } from "react-bootstrap";
@@ -33,14 +28,6 @@ export class ChatRoomsSelector extends React.Component<ChatRoomsProperties,void>
     render () {
         return (
             <div>
-                <Form>
-                    <FormGroup controlId="formInlineName">
-                        <FormControl type="text" placeholder="New Group"/>
-                        <InputGroup.Button>
-                            <Button onClick={() => actions.createChatRoom('Chat Room')}>Add</Button>
-                        </InputGroup.Button>
-                    </FormGroup>
-                </Form>
                 <ListGroup>
                     {this.renderChatRooms()}
                 </ListGroup>

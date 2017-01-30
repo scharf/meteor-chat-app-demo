@@ -1,13 +1,24 @@
 import * as React from "react";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
+import { Nav, Navbar, NavItem,Modal,Button } from "react-bootstrap";
 import AccountsUIWrapper from "./AccountsUIWrapper";
+import { AddGroupDialog } from "./AddGroupDialog";
+import { SetAvatarDialog } from "./SetAvatarDialog";
 
 interface NavigationProperties {
     fixedTop?:boolean;
 }
-
-export class TopBar extends React.Component<NavigationProperties,void> {
-
+interface TopBarState {
+    showAddGroupDialog:boolean;
+    showSetAvatarDialog:boolean;
+}
+export class TopBar extends React.Component<NavigationProperties,TopBarState > {
+    constructor(props:NavigationProperties) {
+        super(props);
+        this.state = {
+            showAddGroupDialog: false,
+            showSetAvatarDialog: false,
+        }
+    }
     render () {
         return (
             <Navbar fixedTop={this.props.fixedTop}>
@@ -20,10 +31,14 @@ export class TopBar extends React.Component<NavigationProperties,void> {
                 <Navbar.Collapse>
 
                     <Nav>
-                        <NavItem onClick={()=>alert('aha')}>Add Group</NavItem>
+                        <NavItem onSelect={()=>this.setState({showAddGroupDialog:true})}>Add Group</NavItem>
+                        <NavItem onSelect={()=>this.setState({showSetAvatarDialog:true})}>Change Avatar</NavItem>
                         <NavItem eventKey={1} href="#"><AccountsUIWrapper /></NavItem>
                     </Nav>
                 </Navbar.Collapse>
+                <AddGroupDialog show={this.state.showAddGroupDialog} close={()=>this.setState({showAddGroupDialog:false})}/>
+                <SetAvatarDialog show={this.state.showSetAvatarDialog} close={()=>this.setState({showSetAvatarDialog:false})}/>
+
             </Navbar>
         );
     }

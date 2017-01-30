@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { actions, ChatRoom, Message, setActions } from "./ChatRoomApi";
+import { ChatRoom, Message, setActions } from "./ChatRoomApi";
 import { ReactiveVar } from "meteor/reactive-var";
 import { Meteor } from "meteor/meteor";
 
@@ -14,12 +14,13 @@ function createChatRoom(name:string) {
     })
 }
 export function createMessage(chatRoomId:string, message:string):Message {
+
     return {
         chatRoomId,
         text:message,
         senderId:Meteor.userId(),
         senderName:Meteor.user().username,
-        avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg',
+        avatar:getAvatar(),
         createdAt:new Date(),
     };
 }
@@ -36,9 +37,21 @@ function gotoChatRoom(chatRoomId:string) {
 function sendMessage(chatRoomId:string, message:string):void {
     Messages.insert(createMessage(chatRoomId,message));
 }
+export function setAvatar(url:string) {
+    Meteor.users.update(Meteor.userId(),{$set:{"profile.avatar":url}})
+    // Messages.update({senderId:Meteor.userId()},{$set:{"avatar":url}}, {multi:true})
+}
+function getAvatar() {
+    const user = Meteor.user();
+    if(user && user.profile && user.profile.avatar) {
+        return user.profile.avatar;
+    }
+    return 'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg';
+}
 
 setActions( {
     gotoChatRoom,
     createChatRoom,
-    sendMessage
+    sendMessage,
+    setAvatar
 })
