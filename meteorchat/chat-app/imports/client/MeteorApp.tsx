@@ -8,26 +8,35 @@ import { Tracker } from "meteor/tracker";
 
 
 export const MeteorApp = createContainer<void>(function():ChatAppProps {
-    const chatRooms = ChatRooms.find({}).fetch();
+    Meteor.subscribe('chatRoomPublication');
+    const chatRooms = ChatRooms.find().fetch();
     let currentChatRoomId = getCurrentChatRoomId();
     if(!currentChatRoomId && chatRooms.length) {
-        currentChatRoomId = chatRooms[0]._id
+        currentChatRoomId = chatRooms[0]._id;
     }
     const loggedIn = Meteor.userId()!=null;
-    const messages = Messages.find({chatRoomId:currentChatRoomId}).fetch();
+    Meteor.subscribe('messagePublication',currentChatRoomId);
+    const messages = Messages.find(
+        {chatRoomId:currentChatRoomId},
+        { sort: { createdAt: -1 }}
+    ).fetch();
     return {
         currentChatRoomId,
         chatRooms:chatRooms,
-        messages,
+        messages:messages.reverse(),
         loggedIn
     };
 }, ChatApp);
 
+// we expose a few objects for playing in the console
 (window as any).actions = actions;
+(window as any).Messages = Messages;
+(window as any).ChatRooms = ChatRooms;
+(window as any).getCurrentChatRoomId = getCurrentChatRoomId;
 
-Tracker.autorun(function(){
-    const currentChatRoomId = getCurrentChatRoomId();
-    const messages = Messages.find({chatRoomId:currentChatRoomId}).fetch();
-    const chatRooms = ChatRooms.find({}).fetch();
-    console.log('autorun', JSON.stringify({currentChatRoomId,chatRooms,messages}, null, 2));
-})
+// Tracker.autorun(function(){
+//     const currentChatRoomId = getCurrentChatRoomId();
+//     const messages = Messages.find({chatRoomId:currentChatRoomId}).fetch();
+//     const chatRooms = ChatRooms.find({}).fetch();
+//     console.log('autorun', JSON.stringify({currentChatRoomId,chatRooms,messages}, null, 2));
+// })
