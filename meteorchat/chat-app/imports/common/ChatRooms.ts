@@ -1,5 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { ChatRoom, ChatRoomActions, Message } from "./ChatRoomApi";
+import { ReactiveVar } from "meteor/reactive-var";
+import { Meteor } from "meteor/meteor";
 
 export const Messages = new Mongo.Collection<Message>('chat_messages');
 
@@ -11,18 +13,16 @@ function createChatRoom(name:string) {
         newMessages:0
     })
 }
-
 export function createMessage(chatRoomId:string, message:string):Message {
     return {
         chatRoomId,
         text:message,
-        senderId:'scharf',
-        senderName:'Michael',
+        senderId:Meteor.userId(),
+        senderName:Meteor.user().username,
         avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg',
         createdAt:new Date(),
     };
 }
-import { ReactiveVar } from "meteor/reactive-var";
 
 const reactiveChatRoomId = new ReactiveVar<string>("");
 
