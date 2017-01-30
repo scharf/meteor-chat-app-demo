@@ -11,6 +11,7 @@ export interface ChatAppProps {
     chatRooms:ChatRoom[];
     messages:Message[];
     actions:ChatRoomActions;
+    loggedIn:boolean;
 }
 
 export class ChatApp extends React.Component<ChatAppProps,void> {
@@ -21,7 +22,7 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                 <TopBar fixedTop/>
                 {/* This is totally annoying: to get the top border correctly we simply duplicate the navigation*/}
                 <TopBar/>
-                <Grid style={{marginBottom:51}}>
+                {this.props.loggedIn && <Grid style={{ marginBottom: 51 }}>
                     <Row>
                         <Col sm={2} md={3}>
                             <ChatRoomsSelector
@@ -35,6 +36,7 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                         </Col>
                     </Row>
                 </Grid>
+                }
                 <BottomBar chatRoomId={this.props.currentChatRoomId} actions={this.props.actions}/>
             </div>
 

@@ -48,6 +48,7 @@ export class App extends React.Component<void,AppState> {
                 chatRooms={this.state.chatRooms}
                 messages={this.state.messages}
                 actions={simpleChartRoomActions}
+                loggedIn
             />
 
         );
