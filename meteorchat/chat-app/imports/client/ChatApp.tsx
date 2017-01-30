@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Col, Grid, Row } from "react-bootstrap";
+import { Col, Grid, Row, Navbar } from "react-bootstrap";
 import { TopBar } from "./TopBar";
 import { BottomBar } from "./BottomBar";
 import { MessageList } from "./MessageList";
@@ -19,20 +19,25 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
         return (
             <div>
                 <TopBar/>
-                {this.props.loggedIn && <Grid style={{ marginBottom: 51, marginTop: 60 }}>
-                    <Row>
-                        <Col sm={2} md={3}>
-                            <ChatRoomsSelector
-                                chatRooms={this.props.chatRooms}
-                                currentChatRoomId={this.props.currentChatRoomId}
-                            />
-                        </Col>
-                        <Col sm={10} md={9}>
-                            <MessageList messages={this.props.messages}/>
-                        </Col>
-                    </Row>
-                </Grid>
+                {/* tick to get the top margin correctly */}
+                <Navbar />
+                {this.props.loggedIn &&
+                    <Grid>
+                        <Row>
+                            <Col sm={2} md={3}>
+                                <ChatRoomsSelector
+                                    chatRooms={this.props.chatRooms}
+                                    currentChatRoomId={this.props.currentChatRoomId}
+                                />
+                            </Col>
+                            <Col sm={10} md={9}>
+                                <MessageList messages={this.props.messages}/>
+                            </Col>
+                        </Row>
+                    </Grid>
                 }
+                {/* tick to get the bottom margin correctly */}
+                <Navbar />
                 <BottomBar chatRoomId={this.props.currentChatRoomId} />
             </div>
 

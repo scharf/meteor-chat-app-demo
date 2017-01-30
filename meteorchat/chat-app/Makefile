@@ -4,6 +4,10 @@
 start: .makehelper/npm
 	MONGO_URL="mongodb://localhost/meteor-demo" meteor
 
+start-ios: .makehelper/npm
+	MONGO_URL="mongodb://localhost/meteor-demo" meteor run ios
+
+
 clean:
 	rm -rf node_modules
 	rm -rf meteor_server/.meteor/local
