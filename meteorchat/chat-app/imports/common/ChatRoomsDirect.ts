@@ -8,6 +8,7 @@ export const Messages = new Mongo.Collection<Message>('chat_messages');
 export const ChatRooms = new Mongo.Collection<ChatRoom>('chat_rooms');
 
 export function createMessage (chatRoomId:string, message:string):Message {
+
     return {
         chatRoomId,
         text: message,
@@ -17,31 +18,6 @@ export function createMessage (chatRoomId:string, message:string):Message {
         createdAt: new Date(),
     };
 }
-
-Meteor.methods({
-    methodSetAvatar(url:string) {
-        Meteor.users.update(
-            Meteor.userId(),
-            { $set: { "profile.avatar": url } }
-        );
-        // change the avatar of all my messages
-        Messages.update(
-            { senderId: Meteor.userId() },
-            { $set: { "avatar": url } },
-            { multi: true }
-        );
-    },
-    methodCreateChatRoom(name:string) {
-        ChatRooms.insert({
-            name,
-            newMessages: 0
-        })
-    },
-    methodSendMessage(chatRoomId:string, message:string) {
-        Messages.insert(createMessage(chatRoomId, message));
-    }
-
-});
 
 const reactiveChatRoomId = new ReactiveVar<string>("");
 
@@ -54,15 +30,27 @@ function gotoChatRoom (chatRoomId:string) {
 }
 
 function createChatRoom (name:string) {
-    Meteor.call('methodCreateChatRoom', name);
+    ChatRooms.insert({
+        name,
+        newMessages: 0
+    })
 }
 
 function sendMessage (chatRoomId:string, message:string):void {
-    Meteor.call('methodSendMessage', chatRoomId, message);
+    Messages.insert(createMessage(chatRoomId, message));
 }
 
-export function setAvatar (url:string) {
-    Meteor.call('methodSetAvatar', url);
+function setAvatar (url:string) {
+    Meteor.users.update(
+        Meteor.userId(),
+        { $set: { "profile.avatar": url } }
+    );
+    // change the avatar of all my messages
+    Messages.update(
+        { senderId: Meteor.userId() },
+        { $set: { "avatar": url } },
+        { multi: true }
+    );
 }
 
 function getAvatar () {
