@@ -4,16 +4,14 @@ import AccountsUIWrapper from "./AccountsUIWrapper";
 import { AddGroupDialog } from "./AddGroupDialog";
 import { SetAvatarDialog } from "./SetAvatarDialog";
 
-interface NavigationProperties {
-    fixedTop?:boolean;
-}
+
 interface TopBarState {
     showAddGroupDialog:boolean;
     showSetAvatarDialog:boolean;
 }
-export class TopBar extends React.Component<NavigationProperties,TopBarState > {
-    constructor(props:NavigationProperties) {
-        super(props);
+export class TopBar extends React.Component<void,TopBarState > {
+    constructor() {
+        super();
         this.state = {
             showAddGroupDialog: false,
             showSetAvatarDialog: false,
@@ -21,7 +19,7 @@ export class TopBar extends React.Component<NavigationProperties,TopBarState > {
     }
     render () {
         return (
-            <Navbar fixedTop={this.props.fixedTop}>
+            <Navbar fixedTop>
                 <Navbar.Header>
                     <Navbar.Brand>
                         <a href="#">React Bootstrap</a>

@@ -18,10 +18,8 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
     render () {
         return (
             <div>
-                <TopBar fixedTop/>
-                {/* This is totally annoying: to get the top border correctly we simply duplicate the navigation*/}
                 <TopBar/>
-                {this.props.loggedIn && <Grid style={{ marginBottom: 51 }}>
+                {this.props.loggedIn && <Grid style={{ marginBottom: 51, marginTop: 60 }}>
                     <Row>
                         <Col sm={2} md={3}>
                             <ChatRoomsSelector

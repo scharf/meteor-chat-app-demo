@@ -89,9 +89,13 @@ export function chatRoomMessages(chatRoomId:string):Message[] {
 export function setAvatar(url:string) {
     localStorage.setItem('avatar', url);
 }
-setActions({
-    gotoChatRoom,
-    createChatRoom,
-    sendMessage,
-    setAvatar
-});
+
+export function  installSimpleChatRoomActions() {
+    setActions({
+        gotoChatRoom,
+        createChatRoom,
+        sendMessage,
+        setAvatar
+    });
+
+}

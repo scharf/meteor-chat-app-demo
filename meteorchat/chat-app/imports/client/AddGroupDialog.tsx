@@ -47,6 +47,7 @@ export class AddGroupDialog extends React.Component<AddGroupDialogProps,AddGroup
                         </FormGroup>
                     </form>                </Modal.Body>
                 <Modal.Footer>
+                    <Button onClick={this.props.close}>Cancel</Button>
                     <Button bsStyle="primary" onClick={this.done.bind(this)}>Save</Button>
                 </Modal.Footer>
             </Modal>

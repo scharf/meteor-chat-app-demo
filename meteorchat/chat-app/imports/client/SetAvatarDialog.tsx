@@ -32,14 +32,14 @@ export class SetAvatarDialog extends React.Component<SetAvatarDialogProps,SetAva
         return (
             <Modal show={this.props.show} onHide={this.props.close}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Group</Modal.Title>
+                    <Modal.Title>Set Avatar</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
                         <FormGroup
                             controlId="formBasicText"
                         >
-                            <ControlLabel>Group Name</ControlLabel>
+                            <ControlLabel>Avatar URL</ControlLabel>
                             <FormControl
                                 type="text"
                                 value={this.state.value}
@@ -48,8 +48,10 @@ export class SetAvatarDialog extends React.Component<SetAvatarDialogProps,SetAva
                             />
                             <FormControl.Feedback />
                         </FormGroup>
-                    </form>                </Modal.Body>
+                    </form>
+                </Modal.Body>
                 <Modal.Footer>
+                    <Button onClick={this.props.close}>Cancel</Button>
                     <Button bsStyle="primary" onClick={this.done.bind(this)}>Save</Button>
                 </Modal.Footer>
             </Modal>

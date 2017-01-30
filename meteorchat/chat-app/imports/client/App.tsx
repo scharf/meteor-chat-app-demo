@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
     chatRoomGetAll,
-    chatRoomGetCurrentId, chatRoomMessages,
+    chatRoomGetCurrentId, chatRoomMessages, installSimpleChatRoomActions,
     registerChangeListener
 } from "../common/simple/SimpleChatRooms";
 import { ChatApp } from "./ChatApp";
@@ -26,6 +26,7 @@ export class App extends React.Component<void,AppState> {
     }
 
     componentWillMount () {
+        installSimpleChatRoomActions();
         this.unregister = registerChangeListener(() => {
             this.setState({
                 currentChatRoomId: chatRoomGetCurrentId(),
