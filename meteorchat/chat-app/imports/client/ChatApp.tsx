@@ -4,13 +4,12 @@ import { TopBar } from "./TopBar";
 import { BottomBar } from "./BottomBar";
 import { MessageList } from "./MessageList";
 import { ChatRoomsSelector } from "./ChatRoomsSelector";
-import { ChatRoom, ChatRoomActions, Message } from "../common/ChatRoomApi";
+import { ChatRoom, Message } from "../common/ChatRoomApi";
 
 export interface ChatAppProps {
     currentChatRoomId:string;
     chatRooms:ChatRoom[];
     messages:Message[];
-    actions:ChatRoomActions;
     loggedIn:boolean;
 }
 
@@ -27,7 +26,6 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                         <Col sm={2} md={3}>
                             <ChatRoomsSelector
                                 chatRooms={this.props.chatRooms}
-                                actions={this.props.actions}
                                 currentChatRoomId={this.props.currentChatRoomId}
                             />
                         </Col>
@@ -37,7 +35,7 @@ export class ChatApp extends React.Component<ChatAppProps,void> {
                     </Row>
                 </Grid>
                 }
-                <BottomBar chatRoomId={this.props.currentChatRoomId} actions={this.props.actions}/>
+                <BottomBar chatRoomId={this.props.currentChatRoomId} />
             </div>
 
         );

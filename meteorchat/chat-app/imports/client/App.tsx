@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-    simpleChartRoomActions, chatRoomGetAll,
+    chatRoomGetAll,
     chatRoomGetCurrentId, chatRoomMessages,
     registerChangeListener
 } from "../common/simple/SimpleChatRooms";
@@ -47,7 +47,6 @@ export class App extends React.Component<void,AppState> {
                 currentChatRoomId={this.state.currentChatRoomId}
                 chatRooms={this.state.chatRooms}
                 messages={this.state.messages}
-                actions={simpleChartRoomActions}
                 loggedIn
             />
 

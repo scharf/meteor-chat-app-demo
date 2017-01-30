@@ -1,5 +1,5 @@
 import { createMessage, createMessages } from "./SimpleMessages";
-import { ChatRoom, ChatRoomActions, Message } from "../ChatRoomApi";
+import { ChatRoom, Message, setActions } from "../ChatRoomApi";
 interface ChatRoomSimple extends ChatRoom {
     _id:string;
     name:string;
@@ -85,8 +85,9 @@ export function chatRoomGetAll() {
 export function chatRoomMessages(chatRoomId:string):Message[] {
     return getChatRoom(chatRoomId).messages;
 }
-export const simpleChartRoomActions:ChatRoomActions = {
+
+setActions({
     gotoChatRoom,
     createChatRoom,
     sendMessage,
-}
+});

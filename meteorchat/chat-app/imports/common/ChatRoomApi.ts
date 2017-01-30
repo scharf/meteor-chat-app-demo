@@ -18,8 +18,14 @@ export interface ChatRoom {
 }
 
 
-export interface ChatRoomActions {
+interface ChatRoomActions {
     gotoChatRoom(chatRoomId:string):void;
     createChatRoom(name:string):void;
     sendMessage(chatRoomId:string, message:string):void;
+}
+
+
+export let actions:ChatRoomActions;
+export function setActions(actionsImpl:ChatRoomActions) {
+    actions = actionsImpl;
 }

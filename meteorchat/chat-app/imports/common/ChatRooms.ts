@@ -1,5 +1,5 @@
 import { Mongo } from 'meteor/mongo';
-import { ChatRoom, ChatRoomActions, Message } from "./ChatRoomApi";
+import { actions, ChatRoom, Message, setActions } from "./ChatRoomApi";
 import { ReactiveVar } from "meteor/reactive-var";
 import { Meteor } from "meteor/meteor";
 
@@ -33,12 +33,12 @@ export function getCurrentChatRoomId() {
 function gotoChatRoom(chatRoomId:string) {
     reactiveChatRoomId.set(chatRoomId);
 }
+function sendMessage(chatRoomId:string, message:string):void {
+    Messages.insert(createMessage(chatRoomId,message));
+}
 
-export const chatRoomActions:ChatRoomActions = {
+setActions( {
     gotoChatRoom,
     createChatRoom,
-    sendMessage(chatRoomId:string, message:string):void {
-        Messages.insert(createMessage(chatRoomId,message));
-    }
-
-}
+    sendMessage
+})

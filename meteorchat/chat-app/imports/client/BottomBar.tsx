@@ -1,9 +1,8 @@
 import * as React from "react";
 import { FormControl, FormGroup, InputGroup, Navbar } from "react-bootstrap";
-import { ChatRoomActions } from "../common/ChatRoomApi";
+import { actions } from "../common/ChatRoomApi";
 
 interface NavigationProperties {
-    actions:ChatRoomActions;
     chatRoomId:string;
 }
 
@@ -28,7 +27,7 @@ export class BottomBar extends React.Component<NavigationProperties,NavigationSt
 
     handleKeyPress (target:React.KeyboardEvent<HTMLInputElement>) {
         if (target.charCode == 13) {
-            this.props.actions.sendMessage(this.props.chatRoomId, this.state.newMessage);
+            actions.sendMessage(this.props.chatRoomId, this.state.newMessage);
             this.setState({ newMessage: '' });
         }
     }
