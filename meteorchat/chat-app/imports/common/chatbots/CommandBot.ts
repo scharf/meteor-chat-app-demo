@@ -2,6 +2,17 @@ import { ChatBot, MessageBotData, registerChatBot } from "../ChatBot";
 import { ChatRooms, Messages } from "../ChatRooms";
 import { Meteor } from "meteor/meteor";
 
+export interface BotCommand {
+    commandName:string;
+    documentation?:string;
+    handleCommand(args:string[], messageData:MessageBotData, commandBot:CommandBot):void;
+}
+const commands:{ [command:string]:BotCommand } = {};
+
+export function addCommand (command:BotCommand) {
+    commands[ command.commandName ] = command;
+}
+
 class CommandBot extends ChatBot {
     constructor () {
         super('helpbot', 'Help Bot', '/bot.jpg');
@@ -18,25 +29,72 @@ class CommandBot extends ChatBot {
         }
     }
 
-    private handleCommand (command:string, args:string[], messageData:MessageBotData):boolean {
-        const chatRoomId = messageData.message.chatRoomId;
-        let handled = true;
-        if (command === 'clear') {
-            Messages.remove({ chatRoomId });
-            messageData.doNotSend = true;
-        } else if (command === 'delete') {
-            Messages.remove({ chatRoomId });
-            ChatRooms.remove(chatRoomId);
-        } else if (command === 'users') {
-            this.sendMessage(chatRoomId, Meteor.users.find({}, { fields: { username: 1 } }).fetch().map(u => u.username).join('\n'));
-        } else if (command === 'help') {
-            this.sendMessage(chatRoomId, 'You can use the following commands: \n`/clear`\n`/delete`\n`/users`');
-        } else {
-            handled = false;
+    /**
+     *
+     * @param commandName
+     * @param args
+     * @param messageData
+     * @returns {boolean} true if the command was handeled
+     */
+    private handleCommand (commandName:string, args:string[], messageData:MessageBotData):boolean {
+        const command = commands[commandName];
+        if(command) {
+            command.handleCommand(args,messageData,this);
+            return true;
         }
-        return handled;
+        return false;
     }
 }
+class CommandClear implements BotCommand {
+    commandName='clear';
+
+    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
+        const chatRoomId = messageData.message.chatRoomId;
+        Messages.remove({ chatRoomId });
+        messageData.doNotSend = true;
+    }
+}
+addCommand(new CommandClear());
+
+class CommandDeleteChatRoom implements BotCommand {
+    commandName='delete';
+    documentation='**deletes** the chat room!';
+    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
+        const chatRoomId = messageData.message.chatRoomId;
+        Messages.remove({ chatRoomId });
+        ChatRooms.remove(chatRoomId);
+    }
+}
+addCommand(new CommandDeleteChatRoom());
+
+
+class CommandListUsers implements BotCommand {
+    commandName='users'
+
+    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
+        const chatRoomId = messageData.message.chatRoomId;
+        commandBot.sendMessage(chatRoomId, Meteor.users.find({}, { fields: { username: 1 } }).fetch().map(u => u.username).join('\n'));
+    }
+}
+addCommand(new CommandListUsers());
+
+class CommandHelp implements BotCommand {
+    commandName='help'
+
+    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
+        const chatRoomId = messageData.message.chatRoomId;
+        let help:string[]=[];
+        Object.keys(commands).sort().forEach(commandName => {
+            const command = commands[commandName];
+            let helpString='/`' + commandName+'`';
+            if(command.documentation) {
+                helpString+=' ' +command.documentation
+            }
+            help.push(helpString);
+        });
+        commandBot.sendMessage(chatRoomId, help.join('\n')   );
+    }
+}
+addCommand(new CommandHelp());
 
 registerChatBot(new CommandBot());
-
