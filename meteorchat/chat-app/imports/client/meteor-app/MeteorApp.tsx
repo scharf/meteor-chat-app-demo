@@ -1,9 +1,9 @@
 import * as React from "react";
 import { createContainer } from "meteor/react-meteor-data";
-import { ChatRooms, Messages } from "../common/ChatRooms";
-import { ChatApp, ChatAppProps } from "./ChatApp";
+import { ChatRooms, Messages } from "../../common/mongo/ChatRooms";
+import { ChatApp, ChatAppProps } from "../components/ChatApp";
 import { Meteor } from "meteor/meteor";
-import { actions } from "../common/ChatRoomApi";
+import { actions } from "../../common/ChatRoomApi";
 import { getCurrentChatRoomId } from "./ChatRoomActions";
 
 export const MeteorApp = createContainer<void>(function ():ChatAppProps {

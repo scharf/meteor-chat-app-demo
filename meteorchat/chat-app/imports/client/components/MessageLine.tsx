@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image, Media } from "react-bootstrap";
-import { Message } from "../common/ChatRoomApi";
+import { Message } from "../../common/ChatRoomApi";
 
 interface MessageProperties {
     message:Message;

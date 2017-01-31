@@ -1,6 +1,6 @@
 import { addCommand, BotCommand, CommandBot } from "../CommandBot";
-import { MessageBotData } from "../../ChatBot";
-import { Messages } from "../../ChatRooms";
+import { MessageBotData } from "../ChatBot";
+import { Messages } from "../../mongo/ChatRooms";
 
 class CommandClear implements BotCommand {
     commandName = 'clear';

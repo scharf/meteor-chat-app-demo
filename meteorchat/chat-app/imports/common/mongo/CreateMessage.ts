@@ -1,4 +1,4 @@
-import { Message } from "./ChatRoomApi";
+import { Message } from "../ChatRoomApi";
 import { Meteor } from "meteor/meteor";
 
 export function createMessage (chatRoomId:string, message:string):Message {

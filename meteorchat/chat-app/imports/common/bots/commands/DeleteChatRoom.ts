@@ -1,6 +1,6 @@
 import { addCommand, BotCommand, CommandBot } from "../CommandBot";
-import { MessageBotData } from "../../ChatBot";
-import { ChatRooms, Messages } from "../../ChatRooms";
+import { MessageBotData } from "../ChatBot";
+import { ChatRooms, Messages } from "../../mongo/ChatRooms";
 
 class CommandDeleteChatRoom implements BotCommand {
     commandName = 'delete-chat-room';

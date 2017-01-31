@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
-import { Messages } from "../ChatRooms";
-import { createMessage } from "../CreateMessage";
+import { Messages } from "../mongo/ChatRooms";
+import { createMessage } from "../mongo/CreateMessage";
 
 Meteor.methods({
     methodSendMessage(chatRoomId:string, message:string) {

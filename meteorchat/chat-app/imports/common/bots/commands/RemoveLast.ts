@@ -1,6 +1,6 @@
 import { addCommand, BotCommand, CommandBot } from "../CommandBot";
-import { MessageBotData } from "../../ChatBot";
-import { Messages } from "../../ChatRooms";
+import { MessageBotData } from "../ChatBot";
+import { Messages } from "../../mongo/ChatRooms";
 import { Meteor } from "meteor/meteor";
 
 class CommandRemoveLast implements BotCommand {

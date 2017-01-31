@@ -1,4 +1,4 @@
-import '../imports/common/ChatRooms'
+import '../imports/common/mongo/ChatRooms'
 
 // ----- publications
 import '../imports/server/publications/ChatRoomPublication'
@@ -11,12 +11,13 @@ import '../imports/common/methods/SendMessageWithBot'
 import '../imports/common/methods/SetAvatar'
 
 //  ----- bots
-import '../imports/server/ElizaChatBot'
-import '../imports/common/chatbots/SedBot'
+// import '../imports/server/bots/ElizaChatBot'
+import '../imports/server/bots/ElizaChatBotCool'
+import '../imports/common/bots/SedBot'
 
 //  ----- CommandBot commands
-import '../imports/common/chatbots/commands/Clear'
-import '../imports/common/chatbots/commands/DeleteChatRoom'
-import '../imports/common/chatbots/commands/ListUsers'
-import '../imports/common/chatbots/commands/RandomNumber'
-import '../imports/common/chatbots/commands/RemoveLast'
+import '../imports/common/bots/commands/Clear'
+import '../imports/common/bots/commands/DeleteChatRoom'
+import '../imports/common/bots/commands/ListUsers'
+import '../imports/common/bots/commands/RandomNumber'
+import '../imports/common/bots/commands/RemoveLast'

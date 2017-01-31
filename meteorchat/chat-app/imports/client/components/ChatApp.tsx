@@ -4,7 +4,7 @@ import { TopBar } from "./TopBar";
 import { BottomBar } from "./BottomBar";
 import { MessageList } from "./MessageList";
 import { ChatRoomsSelector } from "./ChatRoomsSelector";
-import { ChatRoom, Message } from "../common/ChatRoomApi";
+import { ChatRoom, Message } from "../../common/ChatRoomApi";
 
 export interface ChatAppProps {
     currentChatRoomId:string;

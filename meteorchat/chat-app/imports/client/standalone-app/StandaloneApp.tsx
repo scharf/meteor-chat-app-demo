@@ -4,9 +4,9 @@ import {
     chatRoomGetCurrentId,
     chatRoomMessages,
     registerChangeListener
-} from "../common/simple/SimpleChatRooms";
-import { ChatApp } from "./ChatApp";
-import { ChatRoom, Message } from "../common/ChatRoomApi";
+} from "../../common/simple/SimpleChatRooms";
+import { ChatApp } from "../components/ChatApp";
+import { ChatRoom, Message } from "../../common/ChatRoomApi";
 
 interface AppState {
     currentChatRoomId:string;

@@ -1,11 +1,9 @@
-import { ChatBot, MessageBotData, registerChatBot } from "../common/ChatBot";
-import { sleep } from "./Sleep";
-import { Messages } from "../common/ChatRooms";
+import { ChatBot, MessageBotData } from "../../common/bots/ChatBot";
 import ElizaBot = require ('elizabot');
 
 const chatBots:{ [id:string]:ElizaBot } = {}
 
-export class ElizaChatBot extends ChatBot {
+export class SimpleElizaChatBot extends ChatBot {
     constructor () {
         super('eliza', 'Dr. Sigmund Freud', '/freud.jpg');
     }
@@ -38,4 +36,3 @@ export class ElizaChatBot extends ChatBot {
 
     }
 }
-registerChatBot(new ElizaChatBot());

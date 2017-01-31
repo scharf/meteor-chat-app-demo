@@ -1,7 +1,7 @@
-import { Messages } from "./ChatRooms";
+import { Messages } from "../mongo/ChatRooms";
 import { Meteor } from "meteor/meteor";
-import { Message } from "./ChatRoomApi";
-import { createMessage } from "./CreateMessage";
+import { Message } from "../ChatRoomApi";
+import { createMessage } from "../mongo/CreateMessage";
 
 export interface MessageBotData {
     message:Message;

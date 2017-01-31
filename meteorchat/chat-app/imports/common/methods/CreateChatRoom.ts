@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { ChatRooms } from "../ChatRooms";
+import { ChatRooms } from "../mongo/ChatRooms";
 
 Meteor.methods({
     methodCreateChatRoom(name:string) {

@@ -1,4 +1,4 @@
-import { ChatBot, MessageBotData, registerChatBot } from "../ChatBot";
+import { ChatBot, MessageBotData, registerChatBot } from "./ChatBot";
 
 export interface BotCommand {
     commandName:string;

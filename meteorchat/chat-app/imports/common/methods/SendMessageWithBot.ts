@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { botSendMessage } from "../ChatBot";
+import { botSendMessage } from "../bots/ChatBot";
 
 Meteor.methods({
     methodSendMessage(chatRoomId:string, message:string) {

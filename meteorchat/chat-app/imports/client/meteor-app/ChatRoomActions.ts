@@ -1,4 +1,4 @@
-import { setActions } from "../common/ChatRoomApi";
+import { setActions } from "../../common/ChatRoomApi";
 import { ReactiveVar } from "meteor/reactive-var";
 import { Meteor } from "meteor/meteor";
 

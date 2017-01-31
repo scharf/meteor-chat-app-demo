@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { Messages } from "../../common/ChatRooms";
+import { Messages } from "../../common/mongo/ChatRooms";
 
 Meteor.publish('messagePublication', function (chatRoomId:string) {
     return Messages.find(

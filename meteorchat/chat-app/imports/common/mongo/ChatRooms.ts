@@ -1,5 +1,5 @@
 import { Mongo } from "meteor/mongo";
-import { ChatRoom, Message } from "./ChatRoomApi";
+import { ChatRoom, Message } from "../ChatRoomApi";
 
 export const Messages = new Mongo.Collection<Message>('chat_messages');
 

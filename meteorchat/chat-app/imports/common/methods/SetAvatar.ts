@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { Messages } from "../ChatRooms";
+import { Messages } from "../mongo/ChatRooms";
 
 Meteor.methods({
     methodSetAvatar(url:string) {

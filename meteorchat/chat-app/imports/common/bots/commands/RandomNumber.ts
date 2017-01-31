@@ -1,5 +1,5 @@
 import { addCommand, BotCommand, CommandBot } from "../CommandBot";
-import { MessageBotData } from "../../ChatBot";
+import { MessageBotData } from "../ChatBot";
 
 
 class CommandRandom implements BotCommand {

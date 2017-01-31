@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button, ControlLabel, FormControl, FormGroup, Modal } from "react-bootstrap";
-import { actions } from "../common/ChatRoomApi";
+import { actions } from "../../common/ChatRoomApi";
 
 interface SetAvatarDialogProps {
     show?:boolean;

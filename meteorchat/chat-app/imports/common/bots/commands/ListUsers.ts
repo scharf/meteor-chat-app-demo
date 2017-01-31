@@ -1,5 +1,5 @@
 import { addCommand, BotCommand, CommandBot } from "../CommandBot";
-import { MessageBotData } from "../../ChatBot";
+import { MessageBotData } from "../ChatBot";
 import { Meteor } from "meteor/meteor";
 
 class CommandListUsers implements BotCommand {

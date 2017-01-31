@@ -1,5 +1,5 @@
-import { ChatBot, MessageBotData, registerChatBot } from "../ChatBot";
-import { Messages } from "../ChatRooms";
+import { ChatBot, MessageBotData, registerChatBot } from "./ChatBot";
+import { Messages } from "../mongo/ChatRooms";
 import { Meteor } from "meteor/meteor";
 
 class SedBot extends ChatBot {

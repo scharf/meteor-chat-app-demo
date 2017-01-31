@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Badge, ListGroup, ListGroupItem } from "react-bootstrap";
-import { actions, ChatRoom } from "../common/ChatRoomApi";
+import { actions, ChatRoom } from "../../common/ChatRoomApi";
 
 interface ChatRoomsProperties {
     chatRooms:ChatRoom[];
