@@ -1,11 +1,21 @@
 import { Messages } from "./ChatRooms";
-import { elizaCheck } from "./ElizaBot";
+
+export interface ChatBot {
+    handleMessage(chatRoomId:string, message:string):void;
+}
+const chatBots:ChatBot[]=[];
+
+export function registerChatBot(chatBot:ChatBot) {
+    chatBots.push(chatBot);
+}
 
 export function botHandle (chatRoomId:string, message:string) {
     if (message.match(/^\/clear/)) {
         Messages.remove({ chatRoomId });
         return;
     }
-    elizaCheck(chatRoomId, message);
+    chatBots.forEach(function(chatBot:ChatBot) {
+        chatBot.handleMessage(chatRoomId, message);
+    })
 }
 

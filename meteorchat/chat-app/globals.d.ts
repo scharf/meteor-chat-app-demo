@@ -29,3 +29,13 @@ declare module 'elizabot' {
         quit:boolean;
     }
 }
+declare module "fibers/future" {
+    // see https://github.com/laverdet/node-fibers#api-documentation
+    class Future<T> {
+        new():Future<T>;
+        wait():T;
+        'throw'(error:any):void;
+        'return'(result:T):void;
+    }
+    export = Future;
+}
