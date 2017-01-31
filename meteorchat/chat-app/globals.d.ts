@@ -9,3 +9,23 @@ declare module 'meteor/react-meteor-data' {
     function createContainer<P>(propsfn: (props: P) => any, component:any): React.ComponentClass<P>;
     export { createContainer };
 }
+// declare module 'elizabot';
+interface ElizaBot {
+    getInitial():string;
+    getFinal():string;
+    reset():void;
+    transform(message:string):string;
+    memSize:number;
+    quit:boolean;
+}
+declare module 'elizabot' {
+    export = class Eliza {
+        constructor(weizenbaunExample?:boolean);
+        getInitial():string;
+        getFinal():string;
+        reset():void;
+        transform(message:string):string;
+        memSize:number;
+        quit:boolean;
+    }
+}

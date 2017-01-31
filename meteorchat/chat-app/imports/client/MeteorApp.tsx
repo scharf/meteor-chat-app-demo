@@ -5,7 +5,7 @@ import { ChatApp, ChatAppProps } from "./ChatApp";
 import { Meteor } from "meteor/meteor";
 import { actions } from "../common/ChatRoomApi";
 import { Tracker } from "meteor/tracker";
-
+import * as Elizabot from 'elizabot';
 
 export const MeteorApp = createContainer<void>(function():ChatAppProps {
     Meteor.subscribe('chatRoomPublication');
@@ -33,6 +33,7 @@ export const MeteorApp = createContainer<void>(function():ChatAppProps {
 (window as any).Messages = Messages;
 (window as any).ChatRooms = ChatRooms;
 (window as any).getCurrentChatRoomId = getCurrentChatRoomId;
+(window as any).Elizabot = Elizabot;
 
 // Tracker.autorun(function(){
 //     const currentChatRoomId = getCurrentChatRoomId();
@@ -40,3 +41,4 @@ export const MeteorApp = createContainer<void>(function():ChatAppProps {
 //     const chatRooms = ChatRooms.find({}).fetch();
 //     console.log('autorun', JSON.stringify({currentChatRoomId,chatRooms,messages}, null, 2));
 // })
+
