@@ -29,7 +29,7 @@ export class TopBar extends React.Component<void,TopBarState > {
                 <Navbar.Collapse>
 
                     <Nav>
-                        <NavItem onSelect={()=>this.setState({showAddGroupDialog:true})}>Add Group</NavItem>
+                        <NavItem onSelect={()=>this.setState({showAddGroupDialog:true})}>Add Chat Room</NavItem>
                         <NavItem onSelect={()=>this.setState({showSetAvatarDialog:true})}>Change Avatar</NavItem>
                         <NavItem eventKey={1} href="#"><AccountsUIWrapper /></NavItem>
                     </Nav>

@@ -29,18 +29,18 @@ export class AddGroupDialog extends React.Component<AddGroupDialogProps,AddGroup
         return (
             <Modal show={this.props.show} onHide={this.props.close}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Group</Modal.Title>
+                    <Modal.Title>Add Chat Room</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
                         <FormGroup
                             controlId="formBasicText"
                         >
-                            <ControlLabel>Group Name</ControlLabel>
+                            <ControlLabel>Chat Room Name</ControlLabel>
                             <FormControl
                                 type="text"
                                 value={this.state.value}
-                                placeholder="Enter Group Name"
+                                placeholder="Enter Chat Group Name"
                                 onChange={this.onChange.bind(this)}
                             />
                             <FormControl.Feedback />
