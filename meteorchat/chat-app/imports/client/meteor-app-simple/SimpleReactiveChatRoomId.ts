@@ -9,4 +9,3 @@ export function getCurrentChatRoomId () {
 export function gotoChatRoom (chatRoomId:string) {
     reactiveChatRoomId.set(chatRoomId);
 }
-(window as any).getCurrentChatRoomId = getCurrentChatRoomId;

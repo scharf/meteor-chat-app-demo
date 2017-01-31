@@ -20,7 +20,3 @@ export const SimpleMeteorApp = createContainer<void>(function ():ChatAppProps {
         loggedIn: true
     };
 }, ChatApp);
-
-// we expose a few objects for playing in the console
-(window as any).Messages = Messages;
-(window as any).ChatRooms = ChatRooms;

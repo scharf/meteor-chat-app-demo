@@ -36,13 +36,10 @@ export function setAvatar (url:string) {
     );
 }
 
-const actions = {
+setActions({
     gotoChatRoom,
     createChatRoom,
     sendMessage,
     setAvatar
-}
-setActions(actions);
-
-(window as any).actions = actions;
+});
 
