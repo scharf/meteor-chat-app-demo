@@ -13,7 +13,7 @@ export function addCommand (command:BotCommand) {
     commands[ command.commandName ] = command;
 }
 
-class CommandBot extends ChatBot {
+export class CommandBot extends ChatBot {
     constructor () {
         super('helpbot', 'Command Bot', '/bot.jpg');
     }
@@ -22,7 +22,7 @@ class CommandBot extends ChatBot {
         const messageText = messageData.message.text;
         if (messageText.match(/^\//)) {
             const command = messageText.replace(/^\/([-_\w]+).*/, '$1');
-            const args = messageText.replace(/(^(\/[-_\w]+)\w*).*/, '').split(/\w+/);
+            const args = messageText.replace(/^\/[-_\w]+\s*/, '').split(/\s+/);
             this.handleCommand(command, args, messageData)
 
         }
@@ -45,39 +45,8 @@ class CommandBot extends ChatBot {
         }
     }
 }
-class CommandClear implements BotCommand {
-    commandName='clear';
 
-    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
-        const chatRoomId = messageData.message.chatRoomId;
-        Messages.remove({ chatRoomId });
-        messageData.doNotSend = true;
-    }
-}
-addCommand(new CommandClear());
-
-class CommandDeleteChatRoom implements BotCommand {
-    commandName='delete-chat-room';
-    documentation='**deletes** the chat room!';
-    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
-        const chatRoomId = messageData.message.chatRoomId;
-        Messages.remove({ chatRoomId });
-        ChatRooms.remove(chatRoomId);
-    }
-}
-addCommand(new CommandDeleteChatRoom());
-
-
-class CommandListUsers implements BotCommand {
-    commandName='users'
-
-    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
-        const chatRoomId = messageData.message.chatRoomId;
-        commandBot.sendMessage(chatRoomId, Meteor.users.find({}, { fields: { username: 1 } }).fetch().map(u => u.username).join('\n'));
-        messageData.message.isPrivate = true;
-    }
-}
-addCommand(new CommandListUsers());
+registerChatBot(new CommandBot());
 
 class CommandHelp implements BotCommand {
     commandName='help'
@@ -99,31 +68,3 @@ class CommandHelp implements BotCommand {
 }
 addCommand(new CommandHelp());
 
-class CommandRemoveLast implements BotCommand {
-    commandName='delete'
-    documentation='deletes your last message!';
-
-    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
-        const chatRoomId = messageData.message.chatRoomId;
-        const lastMessage = Messages.findOne({ownerId:Meteor.userId(), chatRoomId},{ sort: { createdAt: -1 }});
-        if(lastMessage) {
-            Messages.remove(lastMessage._id);
-            messageData.doNotSend = true;
-        }
-
-    }
-}
-addCommand(new CommandRemoveLast());
-
-class CommandRandom implements BotCommand {
-    commandName='random'
-
-    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
-        const chatRoomId = messageData.message.chatRoomId;
-        commandBot.sendMessage(chatRoomId, 'your random number is '+Math.floor(Math.random()*1000), false);
-    }
-}
-addCommand(new CommandRandom());
-
-
-registerChatBot(new CommandBot());
