@@ -1,5 +1,7 @@
 import '../imports/common/mongo/ChatRooms'
 
+import '../imports/common/mongo/Indices'
+
 // ----- publications
 import '../imports/server/publications/ChatRoomPublication'
 import '../imports/server/publications/MessagePublication'
