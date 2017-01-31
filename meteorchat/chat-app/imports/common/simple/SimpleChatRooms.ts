@@ -1,4 +1,4 @@
-import { createMessage, createMessages } from "./SimpleMessages";
+import { createSimpleMessage, createSimpleMessages } from "./SimpleMessages";
 import { ChatRoom, Message, setActions } from "../ChatRoomApi";
 
 interface ChatRoomSimple extends ChatRoom {
@@ -40,7 +40,7 @@ function createChatRoom (name:string):ChatRoomSimple {
 function createChatRooms (n = 5) {
     for (let i = 0; i < n; i++) {
         const chatRoom = createChatRoom(`Chat ${i}`);
-        chatRoom.messages = createMessages(chatRoom._id, 5 * (i + 1));
+        chatRoom.messages = createSimpleMessages(chatRoom._id, 5 * (i + 1));
         chatRoom.newMessages = chatRoom.messages.length;
     }
 }
@@ -52,12 +52,11 @@ function getChatRoom (chatRoomId:string):ChatRoomSimple {
             return chatRoom;
         }
     }
-
 }
 
 function sendMessage (chatRoomId:string, message:string) {
     const chatRoom = getChatRoom(chatRoomId);
-    chatRoom.messages.push(createMessage(chatRoomId, message));
+    chatRoom.messages.push(createSimpleMessage(chatRoomId, message));
     // chatRoom.newMessages+=1;
     fireChanges();
 }

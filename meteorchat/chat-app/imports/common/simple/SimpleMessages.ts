@@ -31,7 +31,7 @@ const users = [
 ]
 let nextMessageId = 1;
 
-export function createMessages (chatRoomId:string, n = 100):Message[] {
+export function createSimpleMessages (chatRoomId:string, n = 100):Message[] {
     function randomChoice<T> (array:T[]) {
         return array[ Math.floor(array.length * Math.random()) ];
     }
@@ -58,7 +58,7 @@ export function createMessages (chatRoomId:string, n = 100):Message[] {
     return result
 }
 
-export function createMessage (chatRoomId:string, message:string):Message {
+export function createSimpleMessage (chatRoomId:string, message:string):Message {
     return {
         _id: `${nextMessageId++}`,
         chatRoomId,

@@ -1,4 +1,5 @@
 import "../imports/client/MeteorMain"
+//import "../imports/client/StandaloneMain"
 
 
 //  ----- messages
