@@ -1,17 +1,29 @@
-import { ChatRooms, Messages } from "./ChatRooms";
+import { createMessage, Messages } from "./ChatRooms";
 import { Meteor } from "meteor/meteor";
+import { Message } from "./ChatRoomApi";
+
+export interface MessageBotData {
+    message:Message;
+    doNotSend:boolean;
+}
 
 export abstract class ChatBot {
     constructor (protected id:string, protected name:string, protected avatar:string) {
     }
 
-    abstract handleMessage (chatRoomId:string, message:string):void;
+    beforeSendMessage (messageData:MessageBotData) {
 
-    sendMessage (chatRoomId:string, message:string, isPrivate=true) {
+    };
+
+    afterSendMessage (messageData:MessageBotData) {
+
+    };
+
+    sendMessage (chatRoomId:string, message:string, isPrivate = true) {
         Messages.insert({
             chatRoomId,
             text: message,
-            ownerId:Meteor.userId(),
+            ownerId: Meteor.userId(),
             senderId: this.id,
             senderName: this.name,
             avatar: this.avatar,
@@ -26,9 +38,22 @@ const chatBots:ChatBot[] = [];
 export function registerChatBot (chatBot:ChatBot) {
     chatBots.push(chatBot);
 }
-export function botHandle (chatRoomId:string, message:string) {
-    chatBots.forEach(function (chatBot:ChatBot) {
-        chatBot.handleMessage(chatRoomId, message);
-    })
-}
 
+export function botSendMessage (chatRoomId:string, messageText:string) {
+    const messageBotData:MessageBotData = {
+        message: createMessage(chatRoomId, messageText),
+        doNotSend: false,
+    };
+    chatBots.forEach(function (chatBot:ChatBot) {
+        chatBot.beforeSendMessage(messageBotData);
+    });
+    if (messageBotData.doNotSend) {
+        return;
+    }
+    const messageId = Messages.insert(messageBotData.message);
+    messageBotData.message = Messages.findOne(messageId);
+    chatBots.forEach(function (chatBot:ChatBot) {
+        chatBot.afterSendMessage(messageBotData);
+    });
+
+}

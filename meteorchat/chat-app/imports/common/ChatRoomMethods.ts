@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
-import { ChatRooms, createMessage, Messages } from "./ChatRooms";
-import { botHandle } from "./ChatBot";
+import { ChatRooms, Messages } from "./ChatRooms";
+import { botSendMessage } from "./ChatBot";
 
 Meteor.methods({
     methodSetAvatar(url:string) {
@@ -22,8 +22,8 @@ Meteor.methods({
         })
     },
     methodSendMessage(chatRoomId:string, message:string) {
-        Messages.insert(createMessage(chatRoomId, message));
-        botHandle(chatRoomId, message);
+        // Messages.insert(createMessage(chatRoomId, message));
+        botSendMessage(chatRoomId, message);
     }
 
 });

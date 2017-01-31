@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import { ChatBot, registerChatBot } from "../common/ChatBot";
+import { ChatBot, MessageBotData, registerChatBot } from "../common/ChatBot";
 import ElizaBot = require ('elizabot');
 import Future = require('fibers/future');
 
@@ -12,13 +12,17 @@ function sleep (millisec:number) {
 }
 
 class ElizaChatBot extends ChatBot {
-    constructor() {
+    constructor () {
         super('eliza', 'Dr. Sigmund Freud', '/freud.jpg');
     }
-    handleMessage (chatRoomId:string, message:string) {
-        if (Meteor.isClient) {
+
+    afterSendMessage (messageData:MessageBotData) {
+        // do not act on private messages
+        if (messageData.message.isPrivate) {
             return;
         }
+        const chatRoomId = messageData.message.chatRoomId;
+        const message = messageData.message.text;
         let reply = '';
         let elizaElizaBot = null;
         if (message.match(/^\help/i)) {
