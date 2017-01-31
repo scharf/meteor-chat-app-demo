@@ -1,15 +1,8 @@
-import { Meteor } from "meteor/meteor";
 import { ChatBot, MessageBotData, registerChatBot } from "../common/ChatBot";
 import ElizaBot = require ('elizabot');
-import Future = require('fibers/future');
+import { sleep } from "./Sleep";
 
 const chatBots:{ [id:string]:ElizaBot } = {}
-
-function sleep (millisec:number) {
-    const future = new Future<String>();
-    setTimeout(() => future.return(null), millisec);
-    future.wait();
-}
 
 class ElizaChatBot extends ChatBot {
     constructor () {
