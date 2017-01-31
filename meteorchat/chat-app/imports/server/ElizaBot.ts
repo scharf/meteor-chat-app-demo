@@ -1,6 +1,7 @@
 import { ChatBot, MessageBotData, registerChatBot } from "../common/ChatBot";
 import ElizaBot = require ('elizabot');
 import { sleep } from "./Sleep";
+import { Messages } from "../common/ChatRooms";
 
 const chatBots:{ [id:string]:ElizaBot } = {}
 
@@ -32,8 +33,13 @@ class ElizaChatBot extends ChatBot {
             }
         }
         if (reply) {
-            sleep(500 + Math.random() * 1000);
-            this.sendMessage(chatRoomId, reply, false);
+            const id = this.sendMessage(chatRoomId, '', false);
+            let text = '';
+            reply.split('').forEach(char=>{
+                text+=char;
+                Messages.update(id,{$set:{text}});
+                sleep(Math.random() * 70);
+            })
         }
     }
 }

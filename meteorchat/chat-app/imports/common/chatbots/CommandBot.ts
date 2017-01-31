@@ -15,7 +15,7 @@ export function addCommand (command:BotCommand) {
 
 class CommandBot extends ChatBot {
     constructor () {
-        super('helpbot', 'Help Bot', '/bot.jpg');
+        super('helpbot', 'Command Bot', '/bot.jpg');
     }
 
     beforeSendMessage (messageData:MessageBotData) {
@@ -36,7 +36,10 @@ class CommandBot extends ChatBot {
      * @returns {boolean} true if the command was handeled
      */
     private handleCommand (commandName:string, args:string[], messageData:MessageBotData) {
-        const command = commands[commandName];
+        let command = commands[commandName];
+        if(!command) {
+            command = commands['help'];
+        }
         if(command) {
             command.handleCommand(args,messageData,this);
         }
@@ -90,7 +93,7 @@ class CommandHelp implements BotCommand {
             }
             help.push(helpString);
         });
-        commandBot.sendMessage(chatRoomId, help.join('\n'));
+        commandBot.sendMessage(chatRoomId, 'Those are the commands I understand:\n'+help.join('\n'));
         messageData.message.isPrivate = true;
     }
 }

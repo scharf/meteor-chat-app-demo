@@ -19,8 +19,15 @@ export abstract class ChatBot {
 
     };
 
-    sendMessage (chatRoomId:string, message:string, isPrivate = true) {
-        Messages.insert({
+    /**
+     *
+     * @param chatRoomId
+     * @param message
+     * @param isPrivate
+     * @returns {string} the message Id of the new message
+     */
+    sendMessage (chatRoomId:string, message:string, isPrivate = true):string {
+        return Messages.insert({
             chatRoomId,
             text: message,
             ownerId: Meteor.userId(),

@@ -13,7 +13,7 @@ class SedBot extends ChatBot {
             const pattern = match[1]
             const replacement = match[2]
             const chatRoomId = messageData.message.chatRoomId;
-            const lastMessage = Messages.findOne({ownerId:Meteor.userId(), chatRoomId},{ sort: { createdAt: -1 }});
+            const lastMessage = Messages.findOne({senderId:Meteor.userId(), chatRoomId},{ sort: { createdAt: -1 }});
             const newText = lastMessage.text.replace(new RegExp(pattern),replacement);
             Messages.update(lastMessage._id, {$set:{text:newText}});
             messageData.doNotSend=true;
