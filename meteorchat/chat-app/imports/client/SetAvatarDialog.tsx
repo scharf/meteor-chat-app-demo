@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormGroup, ControlLabel, FormControl,Modal,Button } from "react-bootstrap";
+import { Button, ControlLabel, FormControl, FormGroup, Modal } from "react-bootstrap";
 import { actions } from "../common/ChatRoomApi";
 
 interface SetAvatarDialogProps {
@@ -10,24 +10,27 @@ interface SetAvatarDialogState {
     value:string;
 }
 export class SetAvatarDialog extends React.Component<SetAvatarDialogProps,SetAvatarDialogState> {
-    constructor() {
+    constructor () {
         super()
-        this.state ={
-            value:''
+        this.state = {
+            value: ''
         }
     }
+
     onChange (event:React.SyntheticEvent<HTMLInputElement>) {
         this.setState({
             value: event.currentTarget.value
         });
     }
-    done() {
+
+    done () {
         actions.setAvatar(this.state.value);
         this.setState({
-            value:''
+            value: ''
         })
         this.props.close();
     }
+
     render () {
         return (
             <Modal show={this.props.show} onHide={this.props.close}>

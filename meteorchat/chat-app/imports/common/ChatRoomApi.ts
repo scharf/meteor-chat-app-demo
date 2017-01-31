@@ -1,4 +1,3 @@
-
 export interface Message {
     _id?:string;
     text:string;
@@ -8,7 +7,7 @@ export interface Message {
     senderName:string;
     avatar:string;
     isPrivate?:boolean;
-    createdAt: Date;
+    createdAt:Date;
 }
 
 
@@ -29,6 +28,6 @@ interface ChatRoomActions {
 
 
 export let actions:ChatRoomActions;
-export function setActions(actionsImpl:ChatRoomActions) {
+export function setActions (actionsImpl:ChatRoomActions) {
     actions = actionsImpl;
 }

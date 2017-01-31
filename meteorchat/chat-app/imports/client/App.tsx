@@ -1,7 +1,9 @@
 import * as React from "react";
 import {
     chatRoomGetAll,
-    chatRoomGetCurrentId, chatRoomMessages, installSimpleChatRoomActions,
+    chatRoomGetCurrentId,
+    chatRoomMessages,
+    installSimpleChatRoomActions,
     registerChangeListener
 } from "../common/simple/SimpleChatRooms";
 import { ChatApp } from "./ChatApp";

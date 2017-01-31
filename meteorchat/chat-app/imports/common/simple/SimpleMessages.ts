@@ -1,7 +1,7 @@
 import { Message } from "../ChatRoomApi";
 
 
-const text=`Lorem ipsum dolor sit amet
+const text = `Lorem ipsum dolor sit amet
 Consectetur adipiscing elit
 Integer molestie lorem at massa
 Facilisis in pretium nisl aliquet
@@ -19,30 +19,38 @@ Nulla posuere
 Aenean sit amet erat nunc
 Eget porttitor lorem`.split(/\n/);
 
-const users=[
-    {senderName:'Alexander', avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/b/b/4/c/thumb_244367948.jpeg'},
-    {senderName:'Michael', avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg'}
-]
-let nextMessageId=1;
-
-export function createMessages(chatRoomId:string,n=100):Message[] {
-    function randomChoice<T>(array:T[]) {
-        return array[Math.floor(array.length * Math.random())];
+const users = [
+    {
+        senderName: 'Alexander',
+        avatar: 'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/b/b/4/c/thumb_244367948.jpeg'
+    },
+    {
+        senderName: 'Michael',
+        avatar: 'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg'
     }
-    function message():Message {
-        const user=randomChoice(users);
+]
+let nextMessageId = 1;
+
+export function createMessages (chatRoomId:string, n = 100):Message[] {
+    function randomChoice<T> (array:T[]) {
+        return array[ Math.floor(array.length * Math.random()) ];
+    }
+
+    function message ():Message {
+        const user = randomChoice(users);
         return {
-            _id:`${nextMessageId++}`,
+            _id: `${nextMessageId++}`,
             chatRoomId,
-            ownerId:user.senderName,
-            senderId:user.senderName,
-            text: randomChoice(text)+'.',
+            ownerId: user.senderName,
+            senderId: user.senderName,
+            text: randomChoice(text) + '.',
             senderName: user.senderName,
             avatar: user.avatar,
-            createdAt:new Date(),
+            createdAt: new Date(),
         }
     }
-    const result:Message[]=[];
+
+    const result:Message[] = [];
     for (var i = 0; i < n; i++) {
         result.push(message())
 
@@ -50,16 +58,16 @@ export function createMessages(chatRoomId:string,n=100):Message[] {
     return result
 }
 
-export function createMessage(chatRoomId:string, message:string):Message {
+export function createMessage (chatRoomId:string, message:string):Message {
     return {
-        _id:`${nextMessageId++}`,
+        _id: `${nextMessageId++}`,
         chatRoomId,
-        text:message,
-        ownerId:'scharf',
-        senderId:'scharf',
-        senderName:'Michael',
-        avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg',
-        createdAt:new Date(),
+        text: message,
+        ownerId: 'scharf',
+        senderId: 'scharf',
+        senderName: 'Michael',
+        avatar: 'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg',
+        createdAt: new Date(),
 
     }
 }

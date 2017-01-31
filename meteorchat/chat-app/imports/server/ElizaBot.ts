@@ -1,7 +1,7 @@
 import { ChatBot, MessageBotData, registerChatBot } from "../common/ChatBot";
-import ElizaBot = require ('elizabot');
 import { sleep } from "./Sleep";
 import { Messages } from "../common/ChatRooms";
+import ElizaBot = require ('elizabot');
 
 const chatBots:{ [id:string]:ElizaBot } = {}
 
@@ -19,7 +19,7 @@ class ElizaChatBot extends ChatBot {
         const message = messageData.message.text;
         let reply = '';
         let elizaElizaBot = null;
-        if (message.match(/^\help/i)) {
+        if (message.match(/^doctor/i)) {
             elizaElizaBot = new ElizaBot();
             reply = elizaElizaBot.getInitial();
             chatBots[ chatRoomId ] = elizaElizaBot;
@@ -35,10 +35,10 @@ class ElizaChatBot extends ChatBot {
         if (reply) {
             const id = this.sendMessage(chatRoomId, '', false);
             let text = '';
-            reply.split('').forEach(char=>{
-                text+=char;
-                Messages.update(id,{$set:{text}});
-                sleep(Math.random() * 70);
+            reply.split('').forEach(char => {
+                text += char;
+                Messages.update(id, { $set: { text } });
+                sleep(Math.random() * 100);
             })
         }
     }

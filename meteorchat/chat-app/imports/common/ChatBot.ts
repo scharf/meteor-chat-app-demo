@@ -12,12 +12,10 @@ export abstract class ChatBot {
     }
 
     beforeSendMessage (messageData:MessageBotData) {
-
-    };
+    }
 
     afterSendMessage (messageData:MessageBotData) {
-
-    };
+    }
 
     /**
      *

@@ -1,6 +1,4 @@
 import { ChatBot, MessageBotData, registerChatBot } from "../ChatBot";
-import { ChatRooms, Messages } from "../ChatRooms";
-import { Meteor } from "meteor/meteor";
 
 export interface BotCommand {
     commandName:string;
@@ -36,12 +34,12 @@ export class CommandBot extends ChatBot {
      * @returns {boolean} true if the command was handeled
      */
     private handleCommand (commandName:string, args:string[], messageData:MessageBotData) {
-        let command = commands[commandName];
-        if(!command) {
-            command = commands['help'];
+        let command = commands[ commandName ];
+        if (!command) {
+            command = commands[ 'help' ];
         }
-        if(command) {
-            command.handleCommand(args,messageData,this);
+        if (command) {
+            command.handleCommand(args, messageData, this);
         }
     }
 }
@@ -49,20 +47,20 @@ export class CommandBot extends ChatBot {
 registerChatBot(new CommandBot());
 
 class CommandHelp implements BotCommand {
-    commandName='help'
+    commandName = 'help'
 
     handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
         const chatRoomId = messageData.message.chatRoomId;
-        let help:string[]=[];
+        let help:string[] = [];
         Object.keys(commands).sort().forEach(commandName => {
-            const command = commands[commandName];
-            let helpString='/`' + commandName+'`';
-            if(command.documentation) {
-                helpString+=' ' +command.documentation
+            const command = commands[ commandName ];
+            let helpString = '/`' + commandName + '`';
+            if (command.documentation) {
+                helpString += ' ' + command.documentation
             }
             help.push(helpString);
         });
-        commandBot.sendMessage(chatRoomId, 'Those are the commands I understand:\n'+help.join('\n'));
+        commandBot.sendMessage(chatRoomId, 'Those are the commands I understand:\n' + help.join('\n'));
         messageData.message.isPrivate = true;
     }
 }

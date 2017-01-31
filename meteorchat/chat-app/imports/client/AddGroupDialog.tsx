@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormGroup, ControlLabel, FormControl,Modal,Button } from "react-bootstrap";
+import { Button, ControlLabel, FormControl, FormGroup, Modal } from "react-bootstrap";
 import { actions } from "../common/ChatRoomApi";
 
 interface AddGroupDialogProps {
@@ -10,21 +10,24 @@ interface AddGroupDialogState {
     value:string;
 }
 export class AddGroupDialog extends React.Component<AddGroupDialogProps,AddGroupDialogState> {
-    constructor() {
+    constructor () {
         super()
-        this.state ={
-            value:''
+        this.state = {
+            value: ''
         }
     }
+
     onChange (event:React.SyntheticEvent<HTMLInputElement>) {
         this.setState({
             value: event.currentTarget.value
         });
     }
-    done() {
-        actions.createChatRoom(this.state.value||"Group");
+
+    done () {
+        actions.createChatRoom(this.state.value || "Group");
         this.props.close();
     }
+
     render () {
         return (
             <Modal show={this.props.show} onHide={this.props.close}>
@@ -45,7 +48,8 @@ export class AddGroupDialog extends React.Component<AddGroupDialogProps,AddGroup
                             />
                             <FormControl.Feedback />
                         </FormGroup>
-                    </form>                </Modal.Body>
+                    </form>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.props.close}>Cancel</Button>
                     <Button bsStyle="primary" onClick={this.done.bind(this)}>Save</Button>

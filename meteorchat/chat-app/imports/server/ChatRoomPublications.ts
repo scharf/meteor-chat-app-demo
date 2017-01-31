@@ -7,7 +7,7 @@ Meteor.publish('messagePublication', function (chatRoomId:string) {
             chatRoomId: chatRoomId,
             $or: [
                 { ownerId: this.userId },
-                { isPrivate: {$ne: true}}
+                { isPrivate: { $ne: true } }
             ]
         },
         { sort: { createdAt: -1 } })
