@@ -5,7 +5,7 @@ import ElizaBot = require ('elizabot');
 
 const chatBots:{ [id:string]:ElizaBot } = {}
 
-class ElizaChatBot extends ChatBot {
+export class ElizaChatBot extends ChatBot {
     constructor () {
         super('eliza', 'Dr. Sigmund Freud', '/freud.jpg');
     }
@@ -33,15 +33,9 @@ class ElizaChatBot extends ChatBot {
             }
         }
         if (reply) {
-            const id = this.sendMessage(chatRoomId, '', false);
-            let text = '';
-            reply.split('').forEach(char => {
-                text += char;
-                Messages.update(id, { $set: { text } });
-                sleep(Math.random() * 100);
-            })
+            this.sendMessage(chatRoomId, reply);
         }
+
     }
 }
-
 registerChatBot(new ElizaChatBot());
