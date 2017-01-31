@@ -34,6 +34,7 @@ export function createMessages(chatRoomId:string,n=100):Message[] {
         return {
             _id:`${nextMessageId++}`,
             chatRoomId,
+            ownerId:user.senderName,
             senderId:user.senderName,
             text: randomChoice(text)+'.',
             senderName: user.senderName,
@@ -54,6 +55,7 @@ export function createMessage(chatRoomId:string, message:string):Message {
         _id:`${nextMessageId++}`,
         chatRoomId,
         text:message,
+        ownerId:'scharf',
         senderId:'scharf',
         senderName:'Michael',
         avatar:'https://a248.e.akamai.net/secure.meetupstatic.com/photos/member/7/a/5/0/thumb_109171312.jpeg',
