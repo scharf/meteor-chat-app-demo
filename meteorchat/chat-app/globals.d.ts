@@ -39,4 +39,38 @@ declare module "fibers/future" {
     }
     export = Future;
 }
+
+declare module SimpleSchemaModule {
+    interface SimpleSchemaDefinition {
+        [attribute: string]: {[props: string]: any}
+    }
+    export interface SimpleSchema {
+        new(definition: SimpleSchemaDefinition): SimpleSchema;
+        extendOptions(options: {[options: string]: any}): void;
+        validate(object:any):void;
+        clean(object:any):void;
+    }
+
+}
+
+declare module 'meteor/aldeed:simple-schema' {
+    export var SimpleSchema:{
+        new(definition: SimpleSchemaModule.SimpleSchemaDefinition):SimpleSchemaModule.SimpleSchema;
+        RegEx: {
+            Url: RegExp,
+            Email: RegExp
+        },
+        messages(messages:{[key:string]:string}):void;
+    };
+}
+// this methods added by meteor/aldeed:simple-schema to mongo colletions
+declare module "meteor/mongo" {
+    export module Mongo {
+        export interface Collection<T> {
+            attachSchema(schema:SimpleSchemaModule.SimpleSchema):any;
+        }
+    }
+}
+
+
 declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;

@@ -61,11 +61,6 @@ function sendMessage (chatRoomId:string, message:string) {
     fireChanges();
 }
 
-export function chatRoomSubscribe (chatRoomId:string, subscribe:boolean) {
-    getChatRoom(chatRoomId).isSubscribed = subscribe;
-    fireChanges();
-}
-
 let currentChatRoom:ChatRoom;
 function gotoChatRoom (chatRoomId:string) {
     currentChatRoom = getChatRoom(chatRoomId);

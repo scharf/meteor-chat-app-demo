@@ -1,6 +1,7 @@
 import '../imports/common/mongo/ChatRooms'
 
 import '../imports/common/mongo/Indices'
+// import '../imports/common/mongo/ChatRoomSchema'
 
 // ----- publications
 import '../imports/server/publications/ChatRoomPublication'

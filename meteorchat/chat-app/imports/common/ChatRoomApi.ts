@@ -14,7 +14,6 @@ export interface Message {
 export interface ChatRoom {
     _id?:string;
     name:string;
-    isSubscribed?:boolean;
     newMessages:number;
 }
 
