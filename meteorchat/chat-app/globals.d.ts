@@ -39,3 +39,4 @@ declare module "fibers/future" {
     }
     export = Future;
 }
+declare function setTimeout(handler: (...args: any[]) => void, timeout: number): number;

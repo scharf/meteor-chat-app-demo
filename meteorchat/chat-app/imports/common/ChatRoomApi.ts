@@ -29,5 +29,8 @@ interface ChatRoomActions {
 
 export let actions:ChatRoomActions;
 export function setActions (actionsImpl:ChatRoomActions) {
+    if(actions) {
+        console.error('actions have been registered before');
+    }
     actions = actionsImpl;
 }

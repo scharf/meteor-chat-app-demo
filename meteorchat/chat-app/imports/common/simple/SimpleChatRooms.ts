@@ -1,5 +1,6 @@
 import { createMessage, createMessages } from "./SimpleMessages";
 import { ChatRoom, Message, setActions } from "../ChatRoomApi";
+
 interface ChatRoomSimple extends ChatRoom {
     _id:string;
     name:string;
@@ -88,12 +89,11 @@ export function chatRoomMessages (chatRoomId:string):Message[] {
 export function setAvatar (url:string) {
 }
 
-export function installSimpleChatRoomActions () {
-    setActions({
-        gotoChatRoom,
-        createChatRoom,
-        sendMessage,
-        setAvatar
-    });
+setActions({
+    gotoChatRoom,
+    createChatRoom,
+    sendMessage,
+    setAvatar
+});
 
-}
+
