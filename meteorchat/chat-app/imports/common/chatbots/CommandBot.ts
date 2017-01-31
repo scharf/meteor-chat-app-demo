@@ -16,13 +16,12 @@ export class CommandBot extends ChatBot {
         super('helpbot', 'Command Bot', '/bot.jpg');
     }
 
-    beforeSendMessage (messageData:MessageBotData) {
+    afterSendMessage (messageData:MessageBotData) {
         const messageText = messageData.message.text;
         if (messageText.match(/^\//)) {
             const command = messageText.replace(/^\/([-_\w]+).*/, '$1');
             const args = messageText.replace(/^\/[-_\w]+\s*/, '').split(/\s+/);
             this.handleCommand(command, args, messageData)
-
         }
     }
 
