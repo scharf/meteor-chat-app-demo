@@ -1,0 +1,5 @@
+import '../imports/common/ChatRooms'
+import '../imports/common/ChatRoomMethods'
+import '../imports/common/chatbots/HelpBot'
+import '../imports/server/ChatRoomPublications'
+import '../imports/server/ElizaBot'

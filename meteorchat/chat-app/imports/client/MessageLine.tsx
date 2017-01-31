@@ -9,6 +9,13 @@ interface MessageProperties {
 export class MessageLine extends React.Component<MessageProperties,void> {
 
     render() {
+        let html = this.props.message.text;
+        html = html.replace(/</,'&lt;');
+        html = html.replace(/`([^`]+)`/g,'<code>$1</code>');
+        html = html.replace(/[*]([^*]+)[*]/g,'<em>$1</em>');
+        html = html.replace(/[**]([^*]+)[**]/g,'<strong>$1</strong>');
+        html = html.replace(/(@[-_\w]+)/g,'<strong>$1</strong>');
+        html = html.replace(/\n/g,'<br>');
         return (
             <Media.ListItem>
                 <Media.Left align="top">
@@ -16,7 +23,7 @@ export class MessageLine extends React.Component<MessageProperties,void> {
                 </Media.Left>
                 <Media.Body>
                     <Media.Heading>{this.props.message.senderName}</Media.Heading>
-                    {this.props.message.text}
+                    <div dangerouslySetInnerHTML={{__html:html}}></div>
                 </Media.Body>
             </Media.ListItem>
         );

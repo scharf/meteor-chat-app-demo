@@ -12,6 +12,7 @@ export function createMessage (chatRoomId:string, message:string):Message {
     return {
         chatRoomId,
         text: message,
+        ownerId:Meteor.userId(),
         senderId: Meteor.userId(),
         senderName: Meteor.user().username,
         avatar: getAvatar(),

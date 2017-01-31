@@ -10,7 +10,7 @@ Meteor.methods({
         );
         // change the avatar of all my messages
         Messages.update(
-            { senderId: Meteor.userId() },
+            { ownerId: Meteor.userId() },
             { $set: { "avatar": url } },
             { multi: true }
         );

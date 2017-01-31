@@ -3,7 +3,13 @@ import { ChatRooms, Messages } from "../common/ChatRooms";
 
 Meteor.publish('messagePublication', function (chatRoomId:string) {
     return Messages.find(
-        { chatRoomId: chatRoomId },
+        {
+            chatRoomId: chatRoomId,
+            $or: [
+                { ownerId: this.userId },
+                { isPrivate: {$ne: true}}
+            ]
+        },
         { sort: { createdAt: -1 } })
 })
 

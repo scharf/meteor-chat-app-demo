@@ -3,9 +3,11 @@ export interface Message {
     _id?:string;
     text:string;
     chatRoomId:string;
+    ownerId:string;
     senderId:string;
     senderName:string;
     avatar:string;
+    isPrivate?:boolean;
     createdAt: Date;
 }
 

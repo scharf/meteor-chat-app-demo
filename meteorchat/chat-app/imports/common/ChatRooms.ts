@@ -11,7 +11,8 @@ export function createMessage (chatRoomId:string, message:string):Message {
     return {
         chatRoomId,
         text: message,
-        senderId: Meteor.userId(),
+        ownerId:Meteor.userId(),
+        senderId:Meteor.userId(),
         senderName: Meteor.user().username,
         avatar: getAvatar(),
         createdAt: new Date(),

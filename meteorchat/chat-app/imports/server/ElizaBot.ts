@@ -1,5 +1,4 @@
 import { Meteor } from "meteor/meteor";
-import { Messages } from "../common/ChatRooms";
 import { ChatBot, registerChatBot } from "../common/ChatBot";
 import ElizaBot = require ('elizabot');
 import Future = require('fibers/future');
@@ -12,7 +11,10 @@ function sleep (millisec:number) {
     future.wait();
 }
 
-class ElizaChatBot implements ChatBot {
+class ElizaChatBot extends ChatBot {
+    constructor() {
+        super('eliza', 'Dr. Sigmund Freud', '/freud.jpg');
+    }
     handleMessage (chatRoomId:string, message:string) {
         if (Meteor.isClient) {
             return;
@@ -34,18 +36,9 @@ class ElizaChatBot implements ChatBot {
         }
         if (reply) {
             sleep(500 + Math.random() * 1000);
-            Messages.insert({
-                chatRoomId,
-                text: reply,
-                senderId: 'Eliza',
-                senderName: 'Dr. Sigmund Freud',
-                avatar: '/freud.jpg',
-                createdAt: new Date(),
-            });
+            this.sendMessage(chatRoomId, reply, false);
         }
-
     }
-
 }
 
 registerChatBot(new ElizaChatBot());
