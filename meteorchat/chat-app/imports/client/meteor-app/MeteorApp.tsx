@@ -3,8 +3,7 @@ import { createContainer } from "meteor/react-meteor-data";
 import { ChatRooms, Messages } from "../../common/mongo/ChatRooms";
 import { ChatApp, ChatAppProps } from "../components/ChatApp";
 import { Meteor } from "meteor/meteor";
-import { actions } from "../../common/ChatRoomApi";
-import { getCurrentChatRoomId } from "./ChatRoomActions";
+import { getCurrentChatRoomId } from "../meteor-app-simple/SimpleReactiveChatRoomId";
 
 export const MeteorApp = createContainer<void>(function ():ChatAppProps {
     Meteor.subscribe('chatRoomPublication');
@@ -26,17 +25,4 @@ export const MeteorApp = createContainer<void>(function ():ChatAppProps {
         loggedIn
     };
 }, ChatApp);
-
-// we expose a few objects for playing in the console
-(window as any).actions = actions;
-(window as any).Messages = Messages;
-(window as any).ChatRooms = ChatRooms;
-(window as any).getCurrentChatRoomId = getCurrentChatRoomId;
-
-// Tracker.autorun(function(){
-//     const currentChatRoomId = getCurrentChatRoomId();
-//     const messages = Messages.find({chatRoomId:currentChatRoomId}).fetch();
-//     const chatRooms = ChatRooms.find({}).fetch();
-//     console.log('autorun', JSON.stringify({currentChatRoomId,chatRooms,messages}, null, 2));
-// })
 

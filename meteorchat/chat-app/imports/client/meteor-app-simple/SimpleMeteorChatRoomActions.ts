@@ -1,17 +1,8 @@
 import { setActions } from "../../common/ChatRoomApi";
-import { ReactiveVar } from "meteor/reactive-var";
 import { Meteor } from "meteor/meteor";
 import { ChatRooms, Messages } from "../../common/mongo/ChatRooms";
+import { gotoChatRoom } from "./SimpleReactiveChatRoomId";
 
-const reactiveChatRoomId = new ReactiveVar<string>("");
-
-export function getCurrentChatRoomId () {
-    return reactiveChatRoomId.get();
-}
-
-function gotoChatRoom (chatRoomId:string) {
-    reactiveChatRoomId.set(chatRoomId);
-}
 
 function createChatRoom (name:string) {
     ChatRooms.insert({
@@ -45,9 +36,13 @@ export function setAvatar (url:string) {
     );
 }
 
-setActions({
+const actions = {
     gotoChatRoom,
     createChatRoom,
     sendMessage,
     setAvatar
-})
+}
+setActions(actions);
+
+(window as any).actions = actions;
+
