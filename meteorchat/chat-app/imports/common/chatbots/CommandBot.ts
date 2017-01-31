@@ -23,9 +23,8 @@ class CommandBot extends ChatBot {
         if (messageText.match(/^\//)) {
             const command = messageText.replace(/^\/([-_\w]+).*/, '$1');
             const args = messageText.replace(/(^(\/[-_\w]+)\w*).*/, '').split(/\w+/);
-            if (this.handleCommand(command, args, messageData)) {
-                messageData.message.isPrivate = true;
-            }
+            this.handleCommand(command, args, messageData)
+
         }
     }
 
@@ -36,13 +35,11 @@ class CommandBot extends ChatBot {
      * @param messageData
      * @returns {boolean} true if the command was handeled
      */
-    private handleCommand (commandName:string, args:string[], messageData:MessageBotData):boolean {
+    private handleCommand (commandName:string, args:string[], messageData:MessageBotData) {
         const command = commands[commandName];
         if(command) {
             command.handleCommand(args,messageData,this);
-            return true;
         }
-        return false;
     }
 }
 class CommandClear implements BotCommand {
@@ -74,6 +71,7 @@ class CommandListUsers implements BotCommand {
     handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
         const chatRoomId = messageData.message.chatRoomId;
         commandBot.sendMessage(chatRoomId, Meteor.users.find({}, { fields: { username: 1 } }).fetch().map(u => u.username).join('\n'));
+        messageData.message.isPrivate = true;
     }
 }
 addCommand(new CommandListUsers());
@@ -92,9 +90,21 @@ class CommandHelp implements BotCommand {
             }
             help.push(helpString);
         });
-        commandBot.sendMessage(chatRoomId, help.join('\n')   );
+        commandBot.sendMessage(chatRoomId, help.join('\n'));
+        messageData.message.isPrivate = true;
     }
 }
 addCommand(new CommandHelp());
+
+class CommandRandom implements BotCommand {
+    commandName='random'
+
+    handleCommand (args:string[], messageData:MessageBotData, commandBot:CommandBot):void {
+        const chatRoomId = messageData.message.chatRoomId;
+        commandBot.sendMessage(chatRoomId, 'your random number is '+Math.floor(Math.random()*1000), false);
+    }
+}
+addCommand(new CommandRandom());
+
 
 registerChatBot(new CommandBot());
