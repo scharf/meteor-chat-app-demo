@@ -1,2 +1,2 @@
 import "../imports/client/Main"
-import '../common/ChatRoomMethods'
+import '../imports/common/ChatRoomMethods'
