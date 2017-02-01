@@ -1,0 +1,7 @@
+import '../imports/common/mongo/ChatRooms'
+
+//  ----- methods
+import '../imports/common/methods/CreateChatRoom'
+import '../imports/common/methods/SendMessage'
+import '../imports/common/methods/SetAvatar'
+

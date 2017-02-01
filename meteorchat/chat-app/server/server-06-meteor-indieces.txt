@@ -1,0 +1,17 @@
+import '../imports/common/mongo/ChatRooms'
+
+//  ----- methods
+import '../imports/common/methods/CreateChatRoom'
+import '../imports/common/methods/SendMessage'
+import '../imports/common/methods/SetAvatar'
+
+
+// ----- publications
+import '../imports/server/publications/ChatRoomPublication'
+import '../imports/server/publications/MessagePublication'
+
+// schema
+import '../imports/common/mongo/ChatRoomSchema'
+
+// speedup
+import '../imports/common/mongo/Indices'

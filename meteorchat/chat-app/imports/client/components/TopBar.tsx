@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
-import AccountsUIWrapper from "./AccountsUIWrapper";
 import { AddGroupDialog } from "./AddGroupDialog";
 import { SetAvatarDialog } from "./SetAvatarDialog";
+import AccountsUIWrapper from "./AccountsUIWrapper";
 
 
 interface TopBarState {

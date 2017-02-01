@@ -1,0 +1,3 @@
+import "../imports/client/meteor-app-simple/SimpleMeteorMain"
+
+import '../imports/client/meteor-app-simple/WindowVariables'

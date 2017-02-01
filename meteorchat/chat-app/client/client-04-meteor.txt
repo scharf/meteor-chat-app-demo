@@ -1,0 +1,6 @@
+import "../imports/client/meteor-app/MeteorMain"
+
+//  ----- methods
+import '../imports/common/methods/SendMessage'
+import '../imports/common/methods/SendMessageWithBot'
+import '../imports/common/methods/SetAvatar'
