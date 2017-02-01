@@ -3,7 +3,7 @@ import { createContainer } from "meteor/react-meteor-data";
 import { ChatRooms, Messages } from "../../common/mongo/ChatRooms";
 import { ChatApp, ChatAppProps } from "../components/ChatApp";
 import { Meteor } from "meteor/meteor";
-import { getCurrentChatRoomId } from "../meteor-app-simple/SimpleReactiveChatRoomId";
+import { getCurrentChatRoomId } from "./ReactiveChatRoomId";
 
 export const MeteorApp = createContainer<void>(function ():ChatAppProps {
     Meteor.subscribe('chatRoomPublication');
