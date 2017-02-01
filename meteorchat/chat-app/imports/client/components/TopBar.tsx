@@ -2,7 +2,6 @@ import * as React from "react";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { AddGroupDialog } from "./AddGroupDialog";
 import { SetAvatarDialog } from "./SetAvatarDialog";
-import AccountsUIWrapper from "./AccountsUIWrapper";
 
 
 interface TopBarState {
@@ -32,7 +31,7 @@ export class TopBar extends React.Component<void,TopBarState > {
                     <Nav>
                         <NavItem onSelect={() => this.setState({ showAddGroupDialog: true })}>Add Chat Room</NavItem>
                         <NavItem onSelect={() => this.setState({ showSetAvatarDialog: true })}>Change Avatar</NavItem>
-                        <NavItem eventKey={1} href="#"><AccountsUIWrapper /></NavItem>
+                        {/*<NavItem eventKey={1} href="#"><AccountsUIWrapper /></NavItem>*/}
                     </Nav>
                 </Navbar.Collapse>
                 <AddGroupDialog show={this.state.showAddGroupDialog}
