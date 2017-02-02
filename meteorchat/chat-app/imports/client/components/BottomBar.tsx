@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormControl, FormGroup, InputGroup, Navbar } from "react-bootstrap";
+import { FormControl, FormGroup, InputGroup } from "react-bootstrap";
 import { actions } from "../../common/ChatRoomApi";
 
 interface NavigationProperties {
@@ -34,21 +34,18 @@ export class BottomBar extends React.Component<NavigationProperties,NavigationSt
 
     render () {
         return (
-            <Navbar fixedBottom>
-                <Navbar.Form>
-                    <FormGroup style={{ width: '100%' }}>
-                        <InputGroup style={{ width: '100%' }}>
-                            <InputGroup.Addon style={{ width: '34px' }}>+</InputGroup.Addon>
-                            <FormControl type="text"
-                                         placeholder="Message"
-                                         value={this.state.newMessage}
-                                         onKeyPress={this.handleKeyPress.bind(this)}
-                                         onChange={this.onChange.bind(this)}
-                            />
-                        </InputGroup>
-                    </FormGroup>
-                </Navbar.Form>
-            </Navbar>
+
+            <FormGroup id='message-input'>
+                <InputGroup style={{ width: '100%' }}>
+                    <InputGroup.Addon>+</InputGroup.Addon>
+                    <FormControl type="text"
+                                 placeholder="Message"
+                                 value={this.state.newMessage}
+                                 onKeyPress={this.handleKeyPress.bind(this)}
+                                 onChange={this.onChange.bind(this)}
+                    />
+                </InputGroup>
+            </FormGroup>
 
         );
     }
