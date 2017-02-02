@@ -1,1 +1,4 @@
 import "../imports/client/standalone-app/StandaloneMain"
+// import "../imports/client/meteor-demo/DemoMeteorMain"
+
+import '../imports/client/meteor-app-simple/WindowVariables'
