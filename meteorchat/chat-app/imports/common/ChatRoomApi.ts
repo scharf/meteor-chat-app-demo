@@ -14,7 +14,7 @@ export interface Message {
 export interface ChatRoom {
     _id?:string;
     name:string;
-    newMessages:number;
+    newMessages?:number;
 }
 
 /**

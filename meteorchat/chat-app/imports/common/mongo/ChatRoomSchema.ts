@@ -3,7 +3,8 @@ import { ChatRooms, Messages } from "./ChatRooms";
 
 const MessageSchema = new SimpleSchema({
     text: {
-        type: String
+        type: String,
+        defaultValue:'', // prevent complaining if eliza posts empty string
     },
     chatRoomId: {
         type: String
